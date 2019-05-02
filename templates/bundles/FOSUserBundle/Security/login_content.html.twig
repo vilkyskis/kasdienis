@@ -1,0 +1,122 @@
+{% trans_default_domain 'FOSUserBundle' %}
+<link rel="stylesheet" type="text/css" href="/css/login.css">
+<link rel="stylesheet" type="text/css" href="/css/util.css">
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+<div class="limiter text-center">
+    <div class="container-login100" style="background-image: url(https://i.pinimg.com/originals/8f/c5/19/8fc519d7444926757b6bdc1253ae6448.jpg);">
+        <div class="wrap-login100 p-t-190 p-b-30">
+            <form action="{{ path("fos_user_security_check") }}" method="post" class="login100-form validate-form">
+                <span class="login100-form-title p-t-20 p-b-45" style="font-size: 100px">LOGIN</span>
+
+                {% if csrf_token %}
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                {% endif %}
+                {% if error %}
+                    <div class=" text-white bg-danger">
+                        {{ error.messageKey|trans(error.messageData, 'security') }}
+                    </div>
+                {% endif %}
+
+                <div class="wrap-input100 validate-input m-b-10" data-validate="Username is required">
+                    <input type="text"
+                           class="input100"
+                           placeholder="Email"
+                           id="username"
+                           name="_username"
+                           value="{{ last_username }}"
+                           required="required"
+                           autocomplete="username"
+                           aria-label="Username"
+                           aria-describedby="basic-addon1" />
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+							<i class="fa fa-user"></i>
+						</span>
+                </div>
+
+
+                <div class="wrap-input100 validate-input m-b-10" data-validate="Password is required">
+                        <input type="password"
+                               class="input100"
+                               id="password"
+                               name="_password"
+                               required="required"
+                               autocomplete="current-password"
+                               placeholder="Password" />
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+							<i class="fa fa-lock"></i>
+						</span>
+                </div>
+
+                <div id="remember" class="checkbox text-center">
+                    <label class="text-white" for="remember_me">
+                        <input type="checkbox" id="remember_me" name="_remember_me" value="on">
+                        {{ 'security.login.remember_me'|trans }}
+                    </label>
+                </div>
+
+                <div class="container-login100-form-btn p-t-10">
+                    <button class="login100-form-btn" name="_submit" type="submit">
+                        Login
+                    </button>
+                </div>
+
+                <div class="text-center w-full p-t-25 p-b-230">
+                    <a href="{{ path('fos_user_resetting_request') }}" class="txt1">
+                        Forgot Username / Password?
+                    </a>
+                </div>
+
+                <div class="text-center w-full">
+                    <a class="txt1" href="{{ path('fos_user_registration_register') }}">
+                        Create new account
+                        <i class="fa fa-long-arrow-right"></i>
+                    </a>
+                </div>
+
+{#
+
+
+                <label class="col-md-8 lbl">Email</label>
+                <div class="input-group mb-3">
+                    #}
+{#<label for="username">{{ 'security.login.username'|trans }}</label>#}{#
+
+                    <input type="text"
+                           class="form-control"
+                           placeholder="Email"
+                           id="username"
+                           name="_username"
+                           value="{{ last_username }}"
+                           required="required"
+                           autocomplete="username"
+                           aria-label="Username"
+                           aria-describedby="basic-addon1" />
+                    #}
+{# <input type="text" class="form-control" placeholder="Username" >#}{#
+
+                </div>
+                <label class="col-md-8 lbl">Password</label>
+                <div class="input-group mb-3">
+                    <input type="password"
+                           id="password"
+                           name="_password"
+                           required="required"
+                           autocomplete="current-password"
+                           class="form-control"
+                           placeholder="Password" />
+                </div>
+
+                <button class="btn btn-primary btn-block btn-signin" name="_submit" type="submit">Sign in</button>
+                <a href="{{ path('fos_user_resetting_request') }}" class="btn">Forgot your password</a>
+                <a href="{{ path('fos_user_registration_register') }}" class="btn">Register</a>
+#}
+
+                {#<input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />#}
+            </form>
+        </div>
+    </div>
+</div>
+
