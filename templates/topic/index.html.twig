@@ -3,21 +3,22 @@
 {% block title %}Topic index{% endblock %}
 
 {% block body %}
+<div class="container">
     <h1>Topic index</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Name</th>
+                <th>Posts</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for topic in topics %}
             <tr>
-                <td>{{ topic.id }}</td>
                 <td>{{ topic.name }}</td>
+                <td>{{ topic.posts|length }}</td>
                 <td>
                     <a href="{{ path('topic_show', {'id': topic.id}) }}">show</a>
                     <a href="{{ path('topic_edit', {'id': topic.id}) }}">edit</a>
@@ -32,4 +33,5 @@
     </table>
 
     <a href="{{ path('topic_new') }}">Create new</a>
+    </div>
 {% endblock %}

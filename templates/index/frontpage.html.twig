@@ -1,39 +1,35 @@
-{% block title %}Frontpage{% endblock %}
-
 {% block body %}
     <div class="container">
-        <h1 class="text-white">FRONTPAGE</h1>
 
+        <h1 class="text-white text-center">FRONTPAGE</h1>
+        {% for topic in topics %}
+        
+        <br><h1>// {{ topic.name }}</h1><br>
         <table class="table table-striped table-bordered text-white">
-            <thead>
-            <tr>
-                <th>Title</th>
-                <th>Date</th>
-                <th>Data</th>
-                <th>Author</th>
-                <th>Upvotes</th>
-                <th>actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for post in posts %}
-                <tr>
-                    <td>{{ post.Title }}</td>
-                    <td>{{ post.Date ? post.Date|date('Y-m-d H:i:s') : '' }}</td>
-                    <td>{{ post.Data }}</td>
-                    <td>{{ post.author }}</td>
-                    <td>{{ post.upvotes }}</td>
+
+            {% for post in posts %} 
+                {% if post.topic == topic.name %}
+                    <tr>
+                    <td style="width: 6%">
+                    {{ post.upvotes }}
+                    </td>
                     <td>
-                        <a href="{{ path('post_show', {'id': post.id}) }}">show</a>
+                    <h5 class="small"><b>{{ post.Title }} * Posted by {{ post.author }} * {{ post.Date ? post.Date|date('Y-m-d H:i') : '' }}</b></h5>
+                    {{ post.Data|length > 240 ? post.Data|raw|slice(0, 240) ~ '...' : post.Data|raw }} <a href="{{ path('post_show', {'id': post.id}) }}">Read more</a><br>
+                    </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            {% if topic.posts|length <= 0 %}
+                <tr>
+                    <td>
+                        So empty
                     </td>
                 </tr>
-            {% else %}
-                <tr>
-                    <td colspan="5">no records found</td>
-                </tr>
-            {% endfor %}
-            </tbody>
+            {% endif %}
+
         </table>
+        {% endfor %}
         {% if is_granted('ROLE_USER')%}
             <a href="{{ path('post_new') }}">Create new</a>
         {% endif %}
