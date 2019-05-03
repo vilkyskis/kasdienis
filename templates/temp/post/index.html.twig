@@ -12,6 +12,7 @@
                 <th>Title</th>
                 <th>Date</th>
                 <th>Data</th>
+                <th>Author</th>
                 <th>Upvotes</th>
                 <th>actions</th>
             </tr>
@@ -23,6 +24,7 @@
                 <td>{{ post.Title }}</td>
                 <td>{{ post.Date ? post.Date|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ post.Data }}</td>
+                <td>{{ post.author }}</td>
                 <td>{{ post.upvotes }}</td>
                 <td>
                     <a href="{{ path('post_show', {'id': post.id}) }}">show</a>
@@ -31,7 +33,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">no records found</td>
+                <td colspan="5">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

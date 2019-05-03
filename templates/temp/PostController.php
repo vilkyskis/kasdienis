@@ -2,11 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Comment;
 use App\Entity\Post;
-use App\Form\CommentType;
-use App\Repository\CommentRepository;
-use App\Form\Post3Type;
+use App\Form\Post2Type;
 use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,7 +31,7 @@ class PostController extends AbstractController
     public function new(Request $request): Response
     {
         $post = new Post();
-        $form = $this->createForm(Post3Type::class, $post);
+        $form = $this->createForm(Post2Type::class, $post);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -52,32 +49,27 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="post_show", methods={"GET","POST"})
+     * @Route("/{id}", name="post_show", methods={"GET"})
      */
-    public function show(Post $post,Request $request,$id): Response
+    public function show(Post $post): Response
     {
-        $comment = new Comment();
-        $em = $this->getDoctrine()->getManager();
-        $postToAdd = $em->getRepository(Post::class)->find($id);
-        $form = $this->createForm(CommentType::class, $comment,array(
-            'postbyid' => $postToAdd,
-        ));
-        $form->handleRequest($request);
-
-
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($comment);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('comment_index');
-        }
-
-
         return $this->render('post/show.html.twig', [
-            'post' => $post,'comment' => $comment,'postbyid' => $postToAdd,
-            'form' => $form->createView(),
+            'post' => $post,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/upvote", name="post_upvote", methods={"GET","POST"})
+     */
+    public function upvote(Post $post,Request $request): Response
+    {
+        $form = $this->createForm(Post2Type::class, $post);
+        $form->handleRequest($request);
+        $post->setUpvotes($post->getUpvotes()+1);
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->redirectToRoute('post_show', [
+            'id' => $post->getId(),
         ]);
     }
 
@@ -86,7 +78,7 @@ class PostController extends AbstractController
      */
     public function edit(Request $request, Post $post): Response
     {
-        $form = $this->createForm(Post3Type::class, $post);
+        $form = $this->createForm(Post2Type::class, $post);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
