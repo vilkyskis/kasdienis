@@ -21,7 +21,7 @@ class Topic
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    public $name;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\post", mappedBy="topic", orphanRemoval=true)

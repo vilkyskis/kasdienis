@@ -24,8 +24,10 @@ class CommentType extends AbstractType
         $builder
             ->add('Date',null,array( 'attr'=>array('style'=>'visibility:hidden'),'label'=>false))
             ->add('comment',TextareaType::class,array('attr' => array(
-                'class' => 'form-control'
-            )))
+                'class' => 'form-control',
+                'placeholder' => 'Add your comment here...'
+                
+            ),'label'=>false))
             ->add('author',null,array('attr'=>array('style'=>'visibility:hidden'),'label'=>false,
                 'data' => $this->security->getUser()
             ))

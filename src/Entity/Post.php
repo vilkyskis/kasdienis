@@ -49,7 +49,7 @@ class Post
     /**
      * @ORM\Column(type="integer")
      */
-    private $upvotes;
+    public $upvotes;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="post")
