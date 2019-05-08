@@ -9,12 +9,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security as ORM_SECURITY;
 
 /**
+ * @ORM_SECURITY("has_role('ROLE_ADMIN')")
  * @Route("/comment")
  */
 class CommentController extends AbstractController
 {
+    private $security;
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
     /**
      * @Route("/", name="comment_index", methods={"GET"})
      */
@@ -26,6 +34,7 @@ class CommentController extends AbstractController
     }
 
     /**
+     * @ORM_SECURITY("has_role('ROLE_USER')")
      * @Route("/{id}/new", name="comment_new", methods={"GET","POST"})
      */
     public function new(Request $request,$id): Response
@@ -61,6 +70,7 @@ class CommentController extends AbstractController
     }
 
     /**
+     * @ORM_SECURITY("has_role('ROLE_USER')")
      * @Route("/{id}/edit", name="comment_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Comment $comment): Response
@@ -83,6 +93,31 @@ class CommentController extends AbstractController
     }
 
     /**
+     * @ORM_SECURITY("has_role('ROLE_USER')")
+     * @Route("/{id}/like", name="comment_like", methods={"GET","POST"})
+     */
+    public function likePost(Comment $comment,Request $request): Response
+    {
+        $form = $this->createForm(CommentType::class, $comment);
+        $user = $this->security->getUser();
+        //$userID = $user->getId();
+        $form->handleRequest($request);
+        
+        if($comment->addLikedBy($user)){
+            $comment->setLikedCount($comment->getLikedCount()+1);
+        } else {
+            $comment->removeLikedBy($user);
+            $comment->setLikedCount($comment->getLikedCount()-1);
+        }
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->redirectToRoute('post_show', [
+            'id' => $comment->getPost()->getId(),
+        ]);
+    }
+
+    /**
+     * @ORM_SECURITY("has_role('ROLE_USER')")
      * @Route("/{id}", name="comment_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Comment $comment): Response

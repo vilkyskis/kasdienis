@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security as ORM_SECURITY;
 
 /**
  * @Route("/topic")
@@ -26,6 +27,7 @@ class TopicController extends AbstractController
     }
 
     /**
+     * @ORM_SECURITY("has_role('ROLE_USER')")
      * @Route("/new", name="topic_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
@@ -59,6 +61,7 @@ class TopicController extends AbstractController
     }
 
     /**
+     * @ORM_SECURITY("has_role('ROLE_USER')")
      * @Route("/{id}/edit", name="topic_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Topic $topic): Response
@@ -81,6 +84,7 @@ class TopicController extends AbstractController
     }
 
     /**
+     * @ORM_SECURITY("has_role('ROLE_USER')")
      * @Route("/{id}", name="topic_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Topic $topic): Response

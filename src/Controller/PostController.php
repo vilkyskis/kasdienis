@@ -13,12 +13,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security as ORM_SECURITY;
 
 /**
  * @Route("/post")
  */
 class PostController extends AbstractController
 {
+    private $security;
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
     /**
      * @Route("/", name="post_index", methods={"GET"})
      */
@@ -31,6 +38,7 @@ class PostController extends AbstractController
     }
 
     /**
+     * @ORM_SECURITY("has_role('ROLE_USER')")
      * @Route("/{id}/upvote", name="post_upvote", methods={"GET","POST"})
      */
     public function upvote(Post $post,Request $request): Response
@@ -46,6 +54,31 @@ class PostController extends AbstractController
     }
 
     /**
+     * @ORM_SECURITY("has_role('ROLE_USER')")
+     * @Route("/{id}/like", name="post_like", methods={"GET","POST"})
+     */
+    public function likePost(Post $post,Request $request): Response
+    {
+        $form = $this->createForm(Post2Type::class, $post);
+        $user = $this->security->getUser();
+        //$userID = $user->getId();
+        $form->handleRequest($request);
+        
+        if($post->addLikedBy($user)){
+            $post->setUpvotes($post->getUpvotes()+1);
+        } else {
+            $post->removeLikedBy($user);
+            $post->setUpvotes($post->getUpvotes()-1);
+        }
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->redirectToRoute('post_show', [
+            'id' => $post->getId(),
+        ]);
+    }
+
+    /**
+     * @ORM_SECURITY("has_role('ROLE_USER')")
      * @Route("/new", name="post_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
@@ -96,12 +129,13 @@ class PostController extends AbstractController
 
 
         return $this->render('post/show.html.twig', [
-            'post' => $post,'comment' => $comment,
+            'post' => $post,'comment' => $comment,  
             'form' => $form->createView(),
         ]);
     }
 
     /**
+     * @ORM_SECURITY("has_role('ROLE_USER')")
      * @Route("/{id}/edit", name="post_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Post $post): Response
@@ -124,13 +158,19 @@ class PostController extends AbstractController
     }
 
     /**
+     * @ORM_SECURITY("has_role('ROLE_USER')")
      * @Route("/{id}", name="post_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Post $post): Response
     {
         if ($this->isCsrfTokenValid('delete'.$post->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+            $likes = $post->getComments();
+            foreach($likes as $like){ 
+                $post->removeComment($like);
+            }
             $entityManager->remove($post);
+
             $entityManager->flush();
         }
 

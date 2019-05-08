@@ -39,6 +39,17 @@ class User extends BaseUser
      */
     private $comments;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Post", mappedBy="likedBy")
+     */
+    private $liked_posts;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Comment", mappedBy="likedBy")
+     */
+    private $liked_comments;
+
+
     public function __construct()
     {
         parent::__construct();
@@ -46,6 +57,8 @@ class User extends BaseUser
         $this->createdposts = new ArrayCollection();
         $this->addRole("ROLE_USER");
         $this->comments = new ArrayCollection();
+        $this->liked_posts = new ArrayCollection();
+        $this->liked_comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -152,4 +165,68 @@ class User extends BaseUser
 
         return $this;
     }
+
+    /**
+     * @return Collection|Post[]
+     */
+    public function getLikedPosts(): Collection
+    {
+        return $this->liked_posts;
+    }
+
+    public function getLikedPostsCount()
+    {
+        return $this->liked_posts->count;
+    }
+
+
+    public function addLikedPost(Post $likedPost): self
+    {
+        if (!$this->liked_posts->contains($likedPost)) {
+            $this->liked_posts[] = $likedPost;
+            $likedPost->addLikedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLikedPost(Post $likedPost): self
+    {
+        if ($this->liked_posts->contains($likedPost)) {
+            $this->liked_posts->removeElement($likedPost);
+            $likedPost->removeLikedBy($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getLikedComments(): Collection
+    {
+        return $this->liked_comments;
+    }
+
+    public function addLikedComment(Comment $likedComment): self
+    {
+        if (!$this->liked_comments->contains($likedComment)) {
+            $this->liked_comments[] = $likedComment;
+            $likedComment->addLikedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLikedComment(Comment $likedComment): self
+    {
+        if ($this->liked_comments->contains($likedComment)) {
+            $this->liked_comments->removeElement($likedComment);
+            $likedComment->removeLikedBy($this);
+        }
+
+        return $this;
+    }
+
+
 }

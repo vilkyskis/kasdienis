@@ -56,11 +56,17 @@ class Post
      */
     private $comments;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="liked_posts")
+     */
+    private $likedBy;
+
     public function __construct()
     {
         $this->Date = new \DateTime();
         $this->upvotes = 0;
         $this->comments = new ArrayCollection();
+        $this->likedBy = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -170,7 +176,34 @@ class Post
 
         return $this;
     }
+    
     public function __toString() {
         return $this->Title;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getLikedBy(): Collection
+    {
+        return $this->likedBy;
+    }
+
+    public function addLikedBy(User $likedBy)
+    {
+        if (!$this->likedBy->contains($likedBy)) {
+            $this->likedBy[] = $likedBy;
+            return $this;
+        }
+        return false;
+    }
+
+    public function removeLikedBy(User $likedBy): self
+    {
+        if ($this->likedBy->contains($likedBy)) {
+            $this->likedBy->removeElement($likedBy);
+        }
+
+        return $this;
     }
 }
