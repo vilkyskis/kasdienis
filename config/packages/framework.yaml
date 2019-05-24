@@ -19,6 +19,6 @@ framework:
     php_errors:
         log: true
     http_method_override: true
-    translator: ~
+    translator: { fallbacks: ['en'] }
     assets:
         json_manifest_path: '%kernel.project_dir%/public/build/manifest.json'

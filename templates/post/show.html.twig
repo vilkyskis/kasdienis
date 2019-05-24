@@ -3,19 +3,29 @@
 {% block title %}{{ post.Title }}{% endblock %}
 
 {% block body %}
-<a href="{{ path('post_index') }}">back to list</a> <br>
-    <div class="container">
-    <h1>{{ post.Title }}</h1> 
-        <p class="post-meta"><h6 class="small">Post by {{ post.author }} </h6>
-        <h6 class="small">{{ post.Date ? post.Date|date('Y-m-d H:i') : '' }}</h6></p>
+<button onclick="window.location.href='{{ path('post_index') }}'" id="back-to-list" title="Go to list"><i class="fas fa-chevron-left"></i></button> 
+<button onclick="window.location.href='{{ path('post_edit', {'id': post.id}) }}'" id="post-edit" title="Edit post"><i class="fas fa-pen"></i></button> 
 
-    <table class="table table-striped table-borderless">
-        <tbody>
+    <div class="container" id="post" style="position:relative;top:20px;">
+    <p class="post-meta"><h1>{{ post.Title }}</h1> <h6 class="small">Post by {{ post.author }} </h6><h6 class="small">{{post.Date|time_diff|trans|raw ? : 'just now'}}</h6>
+    </p>
+
+    
+        
+        
+
+    <table class="table table-borderless">
             <tr>
-                <td class="align-middle" style="width: 8%"> {{ post.likedBy|length }} <a href="{{ path('post_like', {'id': post.id}) }}">{% if app.user in post.likedBy %} <img src="{{ asset('build/images/Heart.png') }}" width="25px" height="25px" />{% else %} <img src="{{ asset('build/images/Heart.png') }}" width="25px" height="25px" style="-webkit-filter: grayscale(100%); filter: grayscale(100%);"/>{% endif %}</a></td>
-                <td>{{ post.Data|raw|nl2br }}</td>
+            <div>
+                <td class="align-middle" style="width: 8%"> {{ post.likedBy|length }} 
+                {% if app.user in post.likedBy %} 
+                <img src="{{ asset('build/images/Heart.png') }}" onclick="window.location.href='{{ path('post_like', {'id': post.id}) }}'" width="25px" height="25px" id="unlike"/>
+                {% else %} 
+                <img src="{{ asset('build/images/Heart.png') }}" id="like" onclick="window.location.href='{{ path('post_like', {'id': post.id}) }}'" width="25px" height="25px"/>
+                {% endif %}</a></td>
+                <td class="post_show" id="post"><article id="post_show">{{ post.Data|raw|nl2br }}</article></td>
+                </div>
             </tr>
-        </tbody>
     </table>
     <div class="text-center">
     {% if is_granted('ROLE_USER') %}
@@ -23,20 +33,28 @@
     {% endif %}
     
     </div>
+    </div>
     {# <b>Upvotes: </b>{{ post.upvotes }}<br> #}
 
+    
+    <div class="container" style="position:relative;top:10px;background-color: #292858; margin-bottom:30px;-webkit-border-radius: 10px;border-radius: 10px; margin-top:10px; padding:20px;">
     <b>Comments:</b><br>
-    <table class="table table-striped table-bordered">
+    <table class="table table-borderless frontpage" id="seperator">
     <tbody>
     {% for comm in post.comments %}
     <tr>
-    <td class="align-middle" style="width: 8%"> {{ comm.likedBy|length }} <a href="{{ path('comment_like', {'id': comm.id}) }}">{% if app.user in comm.likedBy %} <img src="{{ asset('build/images/Heart.png') }}" width="25px" height="25px" />{% else %} <img src="{{ asset('build/images/Heart.png') }}" width="25px" height="25px" style="-webkit-filter: grayscale(100%); filter: grayscale(100%);"/>{% endif %}</a></td>
-    <td>
+    <td class="align-middle" style="width: 8%"> {{ comm.likedBy|length }} 
+        {% if app.user in comm.likedBy %}
+            <img src="{{ asset('build/images/Heart.png') }}" onclick="window.location.href='{{ path('comment_like', {'id': comm.id}) }}'" width="25px" height="25px" id="unlike" />
+        {% else %} 
+            <img src="{{ asset('build/images/Heart.png') }}" onclick="window.location.href='{{ path('comment_like', {'id': comm.id}) }}'" width="25px" height="25px" id="like"/>
+        {% endif %}
+     </td>
+    <td class="comment">
         <p class="post-meta"><b>{{ comm.author }}</b> *
-        {{ comm.Date ? comm.Date|date('Y-m-d H:i') : '' }}</p>
+        {{comm.Date|time_diff|trans|raw ? : 'just now'}}</p>
         <p>{{ comm.comment|nl2br }}</p>
         {# TODO ADD RESPOND#}
-        {{dump(comm)}}
         {% if comm.response|length > 0 %}
         <p>
         {{dump(comm)}}
@@ -50,10 +68,8 @@
             
         </tbody>
     </table>
-    <a href="{{ path('post_index') }}">back to list</a>
-
-    <a href="{{ path('post_edit', {'id': post.id}) }}">edit</a>
+    </div>
 
      {{ include('post/_delete_form.html.twig') }} 
-    </div>
+    
 {% endblock %}

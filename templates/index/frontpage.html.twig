@@ -3,6 +3,9 @@
 
 </style>  
 <div class="logo_index"><h1 class="text-center text-white" style="margin-top: 50px;font-size:70px;">FRONTPAGE</h1></div>
+        {% if is_granted('ROLE_USER')%}        
+        <button onclick="window.location.href='{{ path('post_new') }}'" id="post-add" title="Add post"><i class="fas fa-plus"></i></button> 
+        {% endif %}
     <div class="container" style="margin-top:30px;margin-bottom:30px;">
 
         {% for topic in topics| sortbyfield('name') %}
@@ -10,18 +13,23 @@
         <div class="container" style="background-color: #292858; margin-bottom:30px;-webkit-border-radius: 10px;border-radius: 10px;">
         {% if topic.posts|length > 0 %}
         <br><h1 class="text-center">// {{ topic.name }}</h1><br>
-        <table class="table table-borderless " style="border-collapse:separate; border-spacing:1em;">
+        <table class="table table-borderless frontpage" id="seperator">
 
             {% for post in posts | sortbyfield('upvotes')|reverse%} 
                 {% if post.topic == topic.name %}
                     <tr>
                     <section>
                     <td class="align-middle" style="width: 8%;">
-                    {{ post.likedBy|length }} <a href="{{ path('default_post_like', {'id': post.id}) }}">{% if app.user in post.likedBy %} <img src="{{ asset('build/images/Heart.png') }}" width="25px" height="25px" />{% else %} <img src="{{ asset('build/images/Heart.png') }}" width="25px" height="25px" style="-webkit-filter: grayscale(100%); filter: grayscale(100%);"/>{% endif %}</a>
+                    {{ post.likedBy|length }}
+                    {% if app.user in post.likedBy %} 
+                    <img src="{{ asset('build/images/Heart.png') }}" id="unlike" onclick="window.location.href='{{ path('default_post_like', {'id': post.id}) }}'" width="25px" height="25px" />
+                    {% else %} 
+                    <img src="{{ asset('build/images/Heart.png') }}" id="like" onclick="window.location.href='{{ path('default_post_like', {'id': post.id}) }}'" width="25px" height="25px"/>
+                    {% endif %}
                     </td>
-                    <td style=" background-color:  #32306B; margin:0 0 25px;overflow:hidden;padding:20px;-webkit-border-radius: 10px;border-radius: 10px; ">
+                    <td class="frontpage" id="post">
                     <article class="post">
-                    <p class="post-meta">{{ post.Title }} * <span>Posted by</span> {{ post.author }} * {{ post.Date ? post.Date|date('Y-m-d H:i') : '' }}</p>
+                    <p class="post-meta">{{ post.Title }} * <span>Posted by</span> {{ post.author }} * {{post.Date|time_diff|trans|raw ? : 'just now'}}</p>
                     <p>{{ post.Data|length > 240 ? post.Data|raw|slice(0, 240)|raw : post.Data|raw }} <a href="{{ path('post_show', {'id': post.id}) }}">... Read more</a></p> 
                     </article>
                     </td>
@@ -33,11 +41,6 @@
 
         </table></div>
         {% endfor %}
-        {% if is_granted('ROLE_USER')%}
-            <a href="{{ path('post_new') }}">Create new</a>
-        {% endif %}
     </div>
-
-{{ dump() }}
 
 {% endblock %}
