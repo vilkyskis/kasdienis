@@ -2,6 +2,34 @@
 
 {% block title %}Hello Homepage!{% endblock %}
 
+{% block navbar %}
+ <div id="topic-nav" class="text-center">
+        <a href="/" class="nav-link"><i class="fas fa-home"></i></a>
+        {% for topic in topics| sortbyfield('name') %}
+            <a href="{{ path('topic_show', {'id': topic.id}) }}" class="nav-link">{{ topic.name }}</a>         
+        {% endfor %}
+</div>
+<div id="login-nav" class="text-center">
+    {% if is_granted('ROLE_USER')%}
+
+                    <a href="{{ path('post_index') }}" class="nav-link">Posts</a>
+
+
+                    <a href="{{ path('topic_index') }}" class="nav-link">Topic</a>
+
+
+                    <a href="{{ path('fos_user_security_logout') }}" class="nav-link btn-danger text-white">Logout</a>
+
+            {% else %}
+
+<a href="{{ path('fos_user_security_login') }}" class="nav-link"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+
+                <a href="{{ path('fos_user_registration_register') }}" class="nav-link btn-danger text-white">Register</a>
+
+            {% endif %}
+</div>
+{% endblock %}
+
 {% block body %}
     {% include 'index/frontpage.html.twig' %}
 {% endblock %}

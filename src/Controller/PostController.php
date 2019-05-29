@@ -79,12 +79,12 @@ class PostController extends AbstractController
 
     /**
      * @ORM_SECURITY("has_role('ROLE_USER')")
-     * @Route("/new", name="post_new", methods={"GET","POST"})
+     * @Route("/new/{topic_id}", name="post_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request,$topic_id,TopicRepository $topics): Response
     {
         $post = new Post();
-        $form = $this->createForm(Post2Type::class, $post);
+        $form = $this->createForm(Post2Type::class, $post,array('topic' => $topics->find($topic_id)));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -92,11 +92,11 @@ class PostController extends AbstractController
             $entityManager->persist($post);
             $entityManager->flush();
 
-            return $this->redirectToRoute('post_index');
+            return $this->redirectToRoute('default');
         }
 
         return $this->render('post/new.html.twig', [
-            'post' => $post,
+            'post' => $post,'topic_id' => $topic_id,
             'form' => $form->createView(),
         ]);
     }
@@ -104,7 +104,7 @@ class PostController extends AbstractController
     /**
      * @Route("/{id}", name="post_show", methods={"GET","POST"})
      */
-    public function show(Post $post,Request $request,$id): Response
+    public function show(Post $post,Request $request,$id,TopicRepository $topicRepository): Response
     {
         // Get the post
         $comment = new Comment();
@@ -129,30 +129,31 @@ class PostController extends AbstractController
 
 
         return $this->render('post/show.html.twig', [
-            'post' => $post,'comment' => $comment,  
+            'post' => $post,'comment' => $comment,  'topics' => $topicRepository->findAll(),
             'form' => $form->createView(),
         ]);
     }
 
+    
     /**
      * @ORM_SECURITY("has_role('ROLE_USER')")
-     * @Route("/{id}/edit", name="post_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit/{topic}", name="post_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Post $post): Response
+    public function edit(Request $request, Post $post,$topic, TopicRepository $topics): Response
     {
-        $form = $this->createForm(Post2Type::class, $post);
+        $form = $this->createForm(Post2Type::class, $post,array('topic' => $topics->find($topic)));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('post_index', [
+            return $this->redirectToRoute('default', [
                 'id' => $post->getId(),
             ]);
         }
 
         return $this->render('post/edit.html.twig', [
-            'post' => $post,
+            'post' => $post,'topic_id' => $topic,
             'form' => $form->createView(),
         ]);
     }
@@ -174,6 +175,6 @@ class PostController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('post_index');
+        return $this->redirectToRoute('default');
     }
 }

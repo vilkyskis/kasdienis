@@ -24,7 +24,9 @@ class Post2Type extends AbstractType
             ->add('Title')
             ->add('Date',null,array( 'attr'=>array('style'=>'visibility:hidden'),'label'=>false))
             ->add('Data')
-            ->add('topic')
+            ->add('topic',null,array('attr'=>array('style'=>'visibility:hidden'),'label'=>false,
+            'data' => $options['topic']
+            ))
             ->add('author',null,array('attr'=>array('style'=>'visibility:hidden'),'label'=>false,
                 'data' => $this->security->getUser()
             ))
@@ -36,5 +38,8 @@ class Post2Type extends AbstractType
         $resolver->setDefaults([
             'data_class' => Post::class,
         ]);
+        $resolver->setRequired(array(
+            'topic'
+        ));
     }
 }

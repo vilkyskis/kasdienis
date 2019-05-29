@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\User1Type;
 use App\Repository\UserRepository;
+use App\Repository\TopicRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,10 +52,10 @@ class UserController extends AbstractController
     /**
      * @Route("/{id}", name="user_show", methods={"GET"})
      */
-    public function show(User $user): Response
+    public function show(User $user,TopicRepository $topicRepository): Response
     {
         return $this->render('user/show.html.twig', [
-            'user' => $user,
+            'user' => $user,'topics' => $topicRepository->findAll(),
         ]);
     }
 

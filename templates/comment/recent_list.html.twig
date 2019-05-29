@@ -1,0 +1,5 @@
+{% for comment in comments %}
+    <a href="{{ path('comment_show', {slug: comment.slug}) }}">
+        {{ comment.comment }}
+    </a>
+{% endfor %}

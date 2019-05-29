@@ -1,18 +1,18 @@
-{% block body %}  
 <style>
 
 </style>  
-<div class="logo_index"><h1 class="text-center text-white" style="margin-top: 50px;font-size:70px;">FRONTPAGE</h1></div>
+
+<div class="logo_index"><h1 class="text-center text-white" style="margin-top: 75px;font-size:70px;">FRONTPAGE</h1></div>
         {% if is_granted('ROLE_USER')%}        
-        <button onclick="window.location.href='{{ path('post_new') }}'" id="post-add" title="Add post"><i class="fas fa-plus"></i></button> 
+        <button onclick="window.location.href='{{ path('topic_new') }}'" id="post-add" title="Add topic"><i class="fas fa-plus"></i></button> 
         {% endif %}
-    <div class="container" style="margin-top:30px;margin-bottom:30px;">
+    <div class="container" style="position:absolute;top:185px;left: 375px;margin-top:30px;margin-bottom:30px;">
 
         {% for topic in topics| sortbyfield('name') %}
         
-        <div class="container" style="background-color: #292858; margin-bottom:30px;-webkit-border-radius: 10px;border-radius: 10px;">
+        <div class="container" style="background-color: var(--second_color); margin-bottom:30px;-webkit-border-radius: 10px;border-radius: 10px;">
         {% if topic.posts|length > 0 %}
-        <br><h1 class="text-center">// {{ topic.name }}</h1><br>
+        <br><h1 class="text-center">// <a href="{{ path('topic_show', {'id': topic.id}) }}">{{ topic.name }}</a></h1><br>
         <table class="table table-borderless frontpage" id="seperator">
 
             {% for post in posts | sortbyfield('upvotes')|reverse%} 
@@ -27,10 +27,10 @@
                     <img src="{{ asset('build/images/Heart.png') }}" id="like" onclick="window.location.href='{{ path('default_post_like', {'id': post.id}) }}'" width="25px" height="25px"/>
                     {% endif %}
                     </td>
-                    <td class="frontpage" id="post">
+                    <td onclick="window.location.href='{{ path('post_show', {'id': post.id}) }}'" class="frontpage" id="post" style="cursor: pointer;">
                     <article class="post">
-                    <p class="post-meta">{{ post.Title }} * <span>Posted by</span> {{ post.author }} * {{post.Date|time_diff|trans|raw ? : 'just now'}}</p>
-                    <p>{{ post.Data|length > 240 ? post.Data|raw|slice(0, 240)|raw : post.Data|raw }} <a href="{{ path('post_show', {'id': post.id}) }}">... Read more</a></p> 
+                    <p class="post-meta">{{ post.Title }} * <span>Posted by</span> <a href="{{ path('user_show', {'id': post.author.id}) }}">{{ post.author }}</a> * {{post.Date|time_diff|trans|raw ? : 'just now'}}</p>
+                    <p>{{ post.Data|length > 240 ? post.Data|raw|slice(0, 240)|raw : post.Data|raw }} ... Click to read more</a></p> 
                     </article>
                     </td>
                     </section>
@@ -42,5 +42,4 @@
         </table></div>
         {% endfor %}
     </div>
-
-{% endblock %}
+</div>

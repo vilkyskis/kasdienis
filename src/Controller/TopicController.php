@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Topic;
 use App\Form\TopicType;
+use App\Entity\Post;
+use App\Repository\PostRepository;
 use App\Repository\TopicRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,7 +43,7 @@ class TopicController extends AbstractController
             $entityManager->persist($topic);
             $entityManager->flush();
 
-            return $this->redirectToRoute('topic_index');
+            return $this->redirectToRoute('default');
         }
 
         return $this->render('topic/new.html.twig', [
@@ -53,15 +55,25 @@ class TopicController extends AbstractController
     /**
      * @Route("/{id}", name="topic_show", methods={"GET"})
      */
-    public function show(Topic $topic): Response
+    public function show(Topic $topic,TopicRepository $topicRepository): Response
     {
         return $this->render('topic/show.html.twig', [
-            'topic' => $topic,
+            'topic' => $topic,'topics' => $topicRepository->findAll(),
         ]);
     }
 
     /**
-     * @ORM_SECURITY("has_role('ROLE_USER')")
+     * @Route("/{id}/index", name="topics_show", methods={"GET"})
+     */
+    public function showTopics(Topic $topic,Post $posts): Response
+    {
+        return $this->render('topic/showPosts.html.twig', [
+            'topic' => $topic,'posts' => $posts
+        ]);
+    }
+
+    /**
+     * @ORM_SECURITY("has_role('ROLE_MODERATOR')")
      * @Route("/{id}/edit", name="topic_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Topic $topic): Response
@@ -72,7 +84,7 @@ class TopicController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('topic_index', [
+            return $this->redirectToRoute('default', [
                 'id' => $topic->getId(),
             ]);
         }
@@ -84,7 +96,7 @@ class TopicController extends AbstractController
     }
 
     /**
-     * @ORM_SECURITY("has_role('ROLE_USER')")
+     * @ORM_SECURITY("has_role('ROLE_MODERATOR')")
      * @Route("/{id}", name="topic_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Topic $topic): Response
@@ -95,6 +107,6 @@ class TopicController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('topic_index');
+        return $this->redirectToRoute('default');
     }
 }

@@ -52,10 +52,9 @@ class DefaultController extends AbstractController
      */
     public function likePost(Post $post,Request $request): Response
     {
-        $form = $this->createForm(Post2Type::class, $post);
         $user = $this->security->getUser();
         //$userID = $user->getId();
-        $form->handleRequest($request);
+
         
         if($post->addLikedBy($user)){
             $post->setUpvotes($post->getUpvotes()+1);

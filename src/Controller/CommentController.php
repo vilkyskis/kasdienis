@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security as ORM_SECURITY;
 
 /**
- * @ORM_SECURITY("has_role('ROLE_ADMIN')")
+ * @ORM_SECURITY("has_role('ROLE_USER')")
  * @Route("/comment")
  */
 class CommentController extends AbstractController
@@ -24,6 +24,7 @@ class CommentController extends AbstractController
         $this->security = $security;
     }
     /**
+     * @ORM_SECURITY("has_role('ROLE_ADMIN')")
      * @Route("/", name="comment_index", methods={"GET"})
      */
     public function index(CommentRepository $commentRepository): Response
@@ -60,6 +61,7 @@ class CommentController extends AbstractController
     }
 
     /**
+     * @ORM_SECURITY("has_role('ROLE_USER')")
      * @Route("/{id}", name="comment_show", methods={"GET"})
      */
     public function show(Comment $comment): Response

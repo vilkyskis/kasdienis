@@ -1,37 +1,81 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Topic{% endblock %}
+{% block title %}{{ topic.name }}{% endblock %}
 
+{% block navbar %}
+ <div id="topic-nav" class="text-center">
+        <a href="/" class="nav-link"><i class="fas fa-home"></i></a>
+        {% for topic_ in topics| sortbyfield('name') %}
+            <a href="{{ path('topic_show', {'id': topic_.id}) }}" class="nav-link">{{ topic_.name }}</a>         
+        {% endfor %}
+</div>
+<div id="login-nav" class="text-center">
+    {% if is_granted('ROLE_USER')%}
+
+                    <a href="{{ path('post_index') }}" class="nav-link">Posts</a>
+
+
+                    <a href="{{ path('topic_index') }}" class="nav-link">Topic</a>
+
+
+                    <a href="{{ path('fos_user_security_logout') }}" class="nav-link btn-danger text-white">Logout</a>
+
+            {% else %}
+
+<a href="{{ path('fos_user_security_login') }}" class="nav-link"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+
+                <a href="{{ path('fos_user_registration_register') }}" class="nav-link btn-danger text-white">Register</a>
+
+            {% endif %}
+</div>
+<button onclick="window.location.href='/'" id="back-to-list" title="Go to list"><i class="fas fa-chevron-left"></i></button> 
+{% if app.user == topic.author %}
+<button onclick="window.location.href='{{ path('topic_edit', {'id': topic.id}) }}'" id="post-edit" title="Edit topic"><i class="fas fa-pen"></i></button>     
+    {{ include('topic/_delete_form.html.twig') }}
+{% endif %}
+{% endblock %}
 {% block body %}
-    <div class="container">
-        <h1>Topic</h1>
+<button onclick="window.location.href='{{ path('post_new', {topic_id: topic.id}) }}'" id="post-add" title="Add post"><i class="fas fa-plus"></i></button> 
+<div class="logo_index"><h1 class="text-center text-white" style="margin-top: 75px;font-size:70px;">{{ topic.name }}</h1></div>
+        <div class="container" style="position:absolute;top:215px;left: 375px;background-color: var(--second_color); margin-bottom:30px;-webkit-border-radius: 10px;border-radius: 10px;">
+        
+        {% if topic.posts|length > 0 %}
 
-        <table class="table">
-            <tbody>
-            <tr>
-                <th>Topic Id</th>
-                <th>Topic Name</th>
-            </tr>
-            <tr>
-                <td>{{ topic.id }}</td>
-                <td>{{ topic.name }}</td>
-            </tr>
-            {% for posted in topic.posts|sort('desc') %}
-                <tr>
-                    <td>Post nr. {{ posted.id }} from topic nr. {{ topic.id }}</td>
-                    <td>Post title: {{ posted.title }}</td>
-                    <td><a href="{{ path('post_show', {'id': posted.id}) }}">show</a>
-                        <a href="{{ path('post_edit', {'id': posted.id}) }}">edit</a>
+        <table class="table table-borderless frontpage" id="seperator">
+
+            {% for post in topic.posts | sortbyfield('upvotes')|reverse%} 
+                {% if post.topic == topic.name %}
+                    <tr>
+                    <section>
+                    <td class="align-middle" style="width: 8%;">
+                    {{ post.likedBy|length }}
+                    {% if app.user in post.likedBy %} 
+                    <img src="{{ asset('build/images/Heart.png') }}" id="unlike" onclick="window.location.href='{{ path('default_post_like', {'id': post.id}) }}'" width="25px" height="25px" />
+                    {% else %} 
+                    <img src="{{ asset('build/images/Heart.png') }}" id="like" onclick="window.location.href='{{ path('default_post_like', {'id': post.id}) }}'" width="25px" height="25px"/>
+                    {% endif %}
                     </td>
-                </tr>
+                    <td onclick="window.location.href='{{ path('post_show', {'id': post.id}) }}'" class="frontpage" id="post" style="cursor: pointer;">
+                    <article class="post">
+                    <p class="post-meta">{{ post.Title }} * <span>Posted by</span> <a href="{{ path('user_show', {'id': post.author.id}) }}">{{ post.author }}</a> * {{post.Date|time_diff|trans|raw ? : 'just now'}}</p>
+                    <p>{{ post.Data|length > 240 ? post.Data|raw|slice(0, 240)|raw : post.Data|raw }} ... Click to read more</a></p> 
+                    </article>
+                    </td>
+                    </section>
+                    </tr>
+                {% endif %}
             {% endfor %}
-            </tbody>
-        </table>
+            {% else %}
+            <tr>
+            <td class="align-middle" style="width: 8%;"><td>
+            <td class="frontpage" id="post" style="cursor: pointer;">
+            <p><br>No post created yet, press add, to add new post<br>gif..</p>
+            </td>
+            </tr>
+            {% endif %}
 
-        <a href="{{ path('topic_index') }}">back to list</a>
 
-        <a href="{{ path('topic_edit', {'id': topic.id}) }}">edit</a>
+        </table></div>
 
-        {{ include('topic/_delete_form.html.twig') }}
-    </div>
+        
 {% endblock %}

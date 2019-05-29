@@ -15,7 +15,9 @@ class Post3Type extends AbstractType
             ->add('Title')
             ->add('Date',null,array( 'attr'=>array('style'=>'visibility:hidden'),'label'=>false))
             ->add('Data')
-            ->add('topic')
+            ->add('topic',null,array('attr'=>array('style'=>'visibility:hidden'),'label'=>false,
+            'data' => $options['topic_id']
+            ))
             ->add('author',null,array('attr'=>array('style'=>'visibility:hidden'),'label'=>false,
                 'data' => $this->security->getUser()
             ))

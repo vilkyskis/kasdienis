@@ -1,13 +1,43 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}{{ post.Title }}{% endblock %}
+{% block navbar %}
+ <div id="topic-nav" class="text-center">
+        <a href="/" class="nav-link"><i class="fas fa-home"></i></a>
+        {% for topic in topics| sortbyfield('name') %}
+            <a href="{{ path('topic_show', {'id': topic.id}) }}" class="nav-link">{{ topic.name }}</a>         
+        {% endfor %}
+</div>
+<div id="login-nav" class="text-center">
+    {% if is_granted('ROLE_USER')%}
 
+                    <a href="{{ path('post_index') }}" class="nav-link">Posts</a>
+
+
+                    <a href="{{ path('topic_index') }}" class="nav-link">Topic</a>
+
+
+                    <a href="{{ path('fos_user_security_logout') }}" class="nav-link btn-danger text-white">Logout</a>
+
+            {% else %}
+
+<a href="{{ path('fos_user_security_login') }}" class="nav-link"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+
+                <a href="{{ path('fos_user_registration_register') }}" class="nav-link btn-danger text-white">Register</a>
+
+            {% endif %}
+</div><button onclick="window.location.href='/'" id="back-to-list" title="Go to list"><i class="fas fa-chevron-left"></i></button> 
+{% if app.user == post.author %}
+<button onclick="window.location.href='{{ path('post_edit', {'id': post.id,'topic' : post.topic.id}) }}'" id="post-edit" title="Edit post"><i class="fas fa-pen"></i></button> 
+    {{ include('post/_delete_form.html.twig') }}
+
+{% endif %}
+{% endblock %}
 {% block body %}
-<button onclick="window.location.href='{{ path('post_index') }}'" id="back-to-list" title="Go to list"><i class="fas fa-chevron-left"></i></button> 
-<button onclick="window.location.href='{{ path('post_edit', {'id': post.id}) }}'" id="post-edit" title="Edit post"><i class="fas fa-pen"></i></button> 
+<div class="logo_index"><h1 class="text-center text-white" style="margin-top: 75px;font-size:70px;">{{ post.Topic }}</h1></div>
 
-    <div class="container" id="post" style="position:relative;top:20px;">
-    <p class="post-meta"><h1>{{ post.Title }}</h1> <h6 class="small">Post by {{ post.author }} </h6><h6 class="small">{{post.Date|time_diff|trans|raw ? : 'just now'}}</h6>
+    <div class="container" id="post" style="position:relative;top:-35px;">
+    <p class="post-meta"><h1>{{ post.Title }}</h1> <h6 class="small">Post by <a href="{{ path('user_show', {'id': post.author.id}) }}">{{ post.author }}</a> </h6><h6 class="small">{{post.Date|time_diff|trans|raw ? : 'just now'}}</h6>
     </p>
 
     
@@ -29,7 +59,13 @@
     </table>
     <div class="text-center">
     {% if is_granted('ROLE_USER') %}
+    <div id="sidebar">
     {{ include('comment/_form.html.twig') }}
+    </div>
+    {% else %}
+    <div>
+    You can only comment when you are logged in
+    </div>
     {% endif %}
     
     </div>
@@ -37,11 +73,11 @@
     {# <b>Upvotes: </b>{{ post.upvotes }}<br> #}
 
     
-    <div class="container" style="position:relative;top:10px;background-color: #292858; margin-bottom:30px;-webkit-border-radius: 10px;border-radius: 10px; margin-top:10px; padding:20px;">
+    <div class="container" style="position:relative;top:-30px;background-color: var(--second_color); margin-bottom:30px;-webkit-border-radius: 10px;border-radius: 10px; margin-top:10px; padding:20px;">
     <b>Comments:</b><br>
     <table class="table table-borderless frontpage" id="seperator">
     <tbody>
-    {% for comm in post.comments %}
+    {% for comm in post.comments| sortbyfield('likedCount')|reverse %}
     <tr>
     <td class="align-middle" style="width: 8%"> {{ comm.likedBy|length }} 
         {% if app.user in comm.likedBy %}
@@ -70,6 +106,4 @@
     </table>
     </div>
 
-     {{ include('post/_delete_form.html.twig') }} 
-    
 {% endblock %}

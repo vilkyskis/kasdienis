@@ -110,7 +110,7 @@ class Post
         return $this;
     }
 
-    public function getTopic(): ?string
+    public function getTopic(): ?Topic
     {
         return $this->topic;
     }

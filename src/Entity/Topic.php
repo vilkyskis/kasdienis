@@ -16,7 +16,7 @@ class Topic
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -24,10 +24,20 @@ class Topic
     public $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\post", mappedBy="topic", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Post", mappedBy="topic", orphanRemoval=true)
      * @ORM\OrderBy({"upvotes" = "Desc"})
      */
     private $posts;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $Description;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="topics")
+     */
+    private $author;
 
     public function __construct()
     {
@@ -91,5 +101,29 @@ class Topic
         {
             return '';
         }
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->Description;
+    }
+
+    public function setDescription(?string $Description): self
+    {
+        $this->Description = $Description;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
+
+        return $this;
     }
 }

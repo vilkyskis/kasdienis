@@ -2,26 +2,112 @@
  
 $text-color: #ffffff !default;
 $background-color: #222 !default;
-$logo_size: 20vh;
+$logo_size: 25vh;
 
 $first_color: #32306B;
 $second_color: #292858;
+$gradient_first: #f12711;
+$gradient_second: #f5af19;
+/*-------------------------------------*/
+/*Colors for front*/
+/*-------------------------------------*/
+
+
+
+/*-------------------------------------*/
+
 
  :root {
+  --primary-color:  #4D4D4D;
+  --secondary-color: #536390;
+  --font-color: #424242;
+  --bg-color: #fff;
+  --heading-color: #292922; 
+  --first_color : #E8E8E8;
+  --second_color:   	#E0E0E0;
+  --gradient_first:  #F56858;
+  --gradient_second:  #F8C75E;
+}
+
+[data-theme="dark"] {
     --primary-color: #9A97F3;
     --secondary-color: #818cab;
     --font-color: #e1e1ff;
     --bg-color: #161625;
     --heading-color: #818cab;
+    --first_color: #32306B;
+    --second_color: #292858;
+    --gradient_first: #42408F;
+    --gradient_second: #212047;    
 }
 
-[data-theme="dark"] {
-    --primary-color: #302AE6;
-    --secondary-color: #536390;
-    --font-color: #424242;
-    --bg-color: #fff;
-    --heading-color: #292922;
+/*Simple css to style it like a toggle switch*/
+.theme-switch-wrapper {
+  display: flex;
+  align-items: center;
+  position: absolute; /* Fixed/sticky position */
+  top: 10px; /* Place the button at the bottom of the page */
+  right: 180px; /* Place the button 30px from the right */
+  z-index: 99; /* Make sure it does not overlap */
+  border: none; /* Remove borders */
+  outline: none; /* Remove outline */
+  cursor: pointer; /* Add a mouse pointer on hover */
+
+  em {
+    margin-left: 10px;
+    font-size: 1rem;
+  }
 }
+.theme-switch {
+  display: inline-block;
+  height: 34px;
+  position: relative;
+  width: 60px;
+}
+
+.theme-switch input {
+  display:none;
+}
+
+.slider {
+  background-color: #ccc;
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: .4s;
+}
+
+
+.slider:before {
+  background-color: #fff;
+  bottom: 4px;
+  content: "";
+  height: 26px;
+  left: 4px;
+  position: absolute;
+  transition: .4s;
+  width: 26px;
+}
+
+input:checked + .slider {
+  background-color: #66bb6a;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
 
 body {
   position: relative;
@@ -141,6 +227,8 @@ input:checked + .slider:before {
 }
 
 .logo_index {
+    position: relative;
+    top:-65px;
     background-color: $background-color;
     animation-name: color;
     animation-duration: 9s;
@@ -176,7 +264,7 @@ article iframe {
   margin-right: auto;
 }
 .post_show#post{
-  background-color:  $first_color; 
+  background-color:  var(--first_color); 
   margin:0 0 25px;
   overflow:hidden;
   padding:20px;
@@ -185,7 +273,7 @@ article iframe {
 }
 
 .container#post{
-  background-color: $second_color;
+  background-color: var(--second_color);
    margin-bottom:30px;
    -webkit-border-radius: 10px;
    border-radius: 10px;
@@ -198,7 +286,7 @@ article iframe {
 }
 
 .frontpage#post{
-  background-color:  $first_color; 
+  background-color:  var(--first_color); 
   margin:0 0 25px;
   overflow:hidden;
   padding:20px;
@@ -207,7 +295,7 @@ article iframe {
 }
 
 .form-control{
-  background-color: #42408F;
+  background-color: var(--first_color);
   color:white;
   border-color: transparent;
   padding: 10px;
@@ -218,7 +306,7 @@ article iframe {
 }
 
 .comment{
-  background-color: $first_color;
+  background-color: var(--first_color); 
   margin-bottom:30px;
   -webkit-border-radius: 10px;
   border-radius: 10px;
@@ -230,15 +318,89 @@ article iframe {
   border-spacing:1em;
 }
 
-#post-add {
-  position: fixed; /* Fixed/sticky position */
-  top: 100px; /* Place the button at the bottom of the page */
-  left: 150px; /* Place the button 30px from the right */
+article#post_show::first-letter {
+  color: #aba9bc;
+  float: left;
+  font-family: Georgia;
+  font-size: 75px;
+  line-height: 60px;
+  padding-top: 4px;
+  padding-right: 8px;
+  padding-left: 3px;
+}
+
+#login-nav {
+  overflow:hidden;  
+  position: absolute; /* Fixed/sticky position */
+  top: 215px; /* Place the button at the bottom of the page */
+  right: 25px; /* Place the button 30px from the right */
   z-index: 99; /* Make sure it does not overlap */
   border: none; /* Remove borders */
   outline: none; /* Remove outline */
-  background: $first_color;
+  background: var(--first_color); 
   color: white; /* Text color */
+  cursor: pointer; /* Add a mouse pointer on hover */
+  width: 335px;
+    display: block;
+    text-decoration: none;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    
+    
+    overflow-y:scroll;
+    -ms-overflow-style: none;  // IE 10+
+  scrollbar-width: none;  // Firefox
+}::-webkit-scrollbar { 
+  display: none;  // Safari and Chrome
+}
+
+#topic-nav {
+  overflow:hidden;  
+  position: absolute; /* Fixed/sticky position */
+  top: 215px; /* Place the button at the bottom of the page */
+  left: 25px; /* Place the button 30px from the right */
+  z-index: 99; /* Make sure it does not overlap */
+  border: none; /* Remove borders */
+  outline: none; /* Remove outline */
+  background: var(--first_color); 
+  color: white; /* Text color */
+  cursor: pointer; /* Add a mouse pointer on hover */
+  width: 325px;
+    display: block;
+    text-decoration: none;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    
+    
+    overflow-y:scroll;
+    -ms-overflow-style: none;  // IE 10+
+  scrollbar-width: none;  // Firefox
+  margin-bottom: 30px;
+}::-webkit-scrollbar { 
+  display: none;  // Safari and Chrome
+}
+
+#post-add {
+  position: absolute; /* Fixed/sticky position */
+  top: 385px; /* Place the button at the bottom of the page */
+  right: 180px; /* Place the button 30px from the right */
+  z-index: 99; /* Make sure it does not overlap */
+  border: none; /* Remove borders */
+  outline: none; /* Remove outline */
+  background: var(--first_color); 
+  color: var(--second_color); /* Text color */
   cursor: pointer; /* Add a mouse pointer on hover */
   width: 50px;
     height: 50px;
@@ -255,7 +417,7 @@ article iframe {
 }
 
 #post-add i {
-  color: #fff;
+  color: var(--secondary-color);
   margin: 0;
   position: relative;
   font-size: 19px;
@@ -278,13 +440,13 @@ article iframe {
 
 
 #post-delete {
-  position: fixed; /* Fixed/sticky position */
-  top: 100px; /* Place the button at the bottom of the page */
+  position: absolute; /* Fixed/sticky position */
+  top: 30px; /* Place the button at the bottom of the page */
   left: 150px; /* Place the button 30px from the right */
   z-index: 99; /* Make sure it does not overlap */
   border: none; /* Remove borders */
   outline: none; /* Remove outline */
-  background: $first_color;
+  background: var(--first_color); 
   color: white; /* Text color */
   cursor: pointer; /* Add a mouse pointer on hover */
   width: 50px;
@@ -302,7 +464,7 @@ article iframe {
 }
 
 #post-delete i {
-  color: #fff;
+  color: var(--secondary-color);
   margin: 0;
   position: relative;
   font-size: 19px;
@@ -325,13 +487,13 @@ article iframe {
 
 
 #post-edit {
-  position: fixed; /* Fixed/sticky position */
-  top: 100px; /* Place the button at the bottom of the page */
+  position: absolute; /* Fixed/sticky position */
+  top: 30px;/* Place the button at the bottom of the page */
   left: 90px; /* Place the button 30px from the right */
   z-index: 99; /* Make sure it does not overlap */
   border: none; /* Remove borders */
   outline: none; /* Remove outline */
-  background: $first_color;
+  background: var(--first_color); 
   color: white; /* Text color */
   cursor: pointer; /* Add a mouse pointer on hover */
   width: 50px;
@@ -349,7 +511,7 @@ article iframe {
 }
 
 #post-edit i {
-  color: #fff;
+  color: var(--secondary-color);
   margin: 0;
   position: relative;
   font-size: 19px;
@@ -372,13 +534,13 @@ article iframe {
 
 
 #back-to-list {
-  position: fixed; /* Fixed/sticky position */
-  top: 100px; /* Place the button at the bottom of the page */
+  position: absolute; /* Fixed/sticky position */
+  top: 30px; /* Place the button at the bottom of the page */
   left: 30px; /* Place the button 30px from the right */
   z-index: 99; /* Make sure it does not overlap */
   border: none; /* Remove borders */
   outline: none; /* Remove outline */
-  background: $first_color;
+  background: var(--first_color); 
   color: white; /* Text color */
   cursor: pointer; /* Add a mouse pointer on hover */
   width: 50px;
@@ -396,7 +558,7 @@ article iframe {
 }
 
 #back-to-list i {
-  color: #fff;
+  color: var(--secondary-color);
   margin: 0;
   position: relative;
   font-size: 19px;
@@ -424,7 +586,7 @@ article iframe {
   z-index: 99; /* Make sure it does not overlap */
   border: none; /* Remove borders */
   outline: none; /* Remove outline */
-  background: $first_color;
+  background: var(--first_color); 
   color: white; /* Text color */
   cursor: pointer; /* Add a mouse pointer on hover */
   width: 50px;
@@ -443,7 +605,7 @@ article iframe {
 }
 
 #myBtn i {
-  color: #fff;
+  color: var(--secondary-color);
   margin: 0;
   position: relative;
   font-size: 19px;
@@ -465,13 +627,13 @@ article iframe {
 
 @keyframes color {
   0% {
-    background-color: #42408F;
+    background-color: var(--gradient_first);
   }
   50% {
-    background-color:  #212047;
+    background-color:  var(--gradient_second);
   }
   100% {
-    background-color:  #42408F;
+    background-color:  var(--gradient_first);
   }
 }
 

@@ -49,6 +49,11 @@ class User extends BaseUser
      */
     private $liked_comments;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Topic", mappedBy="author")
+     */
+    private $topics;
+
 
     public function __construct()
     {
@@ -59,6 +64,7 @@ class User extends BaseUser
         $this->comments = new ArrayCollection();
         $this->liked_posts = new ArrayCollection();
         $this->liked_comments = new ArrayCollection();
+        $this->topics = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -223,6 +229,37 @@ class User extends BaseUser
         if ($this->liked_comments->contains($likedComment)) {
             $this->liked_comments->removeElement($likedComment);
             $likedComment->removeLikedBy($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Topic[]
+     */
+    public function getTopics(): Collection
+    {
+        return $this->topics;
+    }
+
+    public function addTopic(Topic $topic): self
+    {
+        if (!$this->topics->contains($topic)) {
+            $this->topics[] = $topic;
+            $topic->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTopic(Topic $topic): self
+    {
+        if ($this->topics->contains($topic)) {
+            $this->topics->removeElement($topic);
+            // set the owning side to null (unless already changed)
+            if ($topic->getAuthor() === $this) {
+                $topic->setAuthor(null);
+            }
         }
 
         return $this;
