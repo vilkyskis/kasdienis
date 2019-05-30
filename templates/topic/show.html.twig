@@ -11,32 +11,33 @@
 </div>
 <div id="login-nav" class="text-center">
     {% if is_granted('ROLE_USER')%}
-
-                    <a href="{{ path('post_index') }}" class="nav-link">Posts</a>
-
-
-                    <a href="{{ path('topic_index') }}" class="nav-link">Topic</a>
+<a href="{{ path('user_show',{'id' : app.user.id}) }}" class="nav-link">{{app.user.username|capitalize}}</a>
+                    <a href="{{ path('post_index') }}" class="nav-link">{% trans %}My posts{% endtrans %}</a>
 
 
-                    <a href="{{ path('fos_user_security_logout') }}" class="nav-link btn-danger text-white">Logout</a>
+                    <a href="{{ path('topic_index') }}" class="nav-link">{% trans %}My topics {% endtrans %}</a>
+
+
+                    <a href="{{ path('fos_user_security_logout') }}" class="nav-link btn-danger text-white">{% trans %}Logout{% endtrans %}</a>
 
             {% else %}
 
-<a href="{{ path('fos_user_security_login') }}" class="nav-link"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+<a href="{{ path('fos_user_security_login') }}" class="nav-link"><span class="glyphicon glyphicon-log-in"></span> {% trans %}Login{% endtrans %}</a>
 
-                <a href="{{ path('fos_user_registration_register') }}" class="nav-link btn-danger text-white">Register</a>
+                <a href="{{ path('fos_user_registration_register') }}" class="nav-link btn-danger text-white">{% trans %}Register{% endtrans %}</a>
 
             {% endif %}
 </div>
 <button onclick="window.location.href='/'" id="back-to-list" title="Go to list"><i class="fas fa-chevron-left"></i></button> 
 {% if app.user == topic.author %}
-<button onclick="window.location.href='{{ path('topic_edit', {'id': topic.id}) }}'" id="post-edit" title="Edit topic"><i class="fas fa-pen"></i></button>     
+<button onclick="window.location.href='{{ path('topic_edit', {'id': topic.id}) }}'" id="topic-edit" title="Edit topic"><i class="fas fa-pen"></i></button>     
     {{ include('topic/_delete_form.html.twig') }}
 {% endif %}
 {% endblock %}
 {% block body %}
 <button onclick="window.location.href='{{ path('post_new', {topic_id: topic.id}) }}'" id="post-add" title="Add post"><i class="fas fa-plus"></i></button> 
-<div class="logo_index"><h1 class="text-center text-white" style="margin-top: 75px;font-size:70px;">{{ topic.name }}</h1></div>
+<div class="logo_index"><h1 class="text-center text-white" style="margin-top: 75px;font-size:70px;">{{ topic.name }}</h1><br>
+<div class='post-meta text-center' >{{topic.description}}</div></div>
         <div class="container" style="position:absolute;top:215px;left: 375px;background-color: var(--second_color); margin-bottom:30px;-webkit-border-radius: 10px;border-radius: 10px;">
         
         {% if topic.posts|length > 0 %}
@@ -57,8 +58,8 @@
                     </td>
                     <td onclick="window.location.href='{{ path('post_show', {'id': post.id}) }}'" class="frontpage" id="post" style="cursor: pointer;">
                     <article class="post">
-                    <p class="post-meta">{{ post.Title }} * <span>Posted by</span> <a href="{{ path('user_show', {'id': post.author.id}) }}">{{ post.author }}</a> * {{post.Date|time_diff|trans|raw ? : 'just now'}}</p>
-                    <p>{{ post.Data|length > 240 ? post.Data|raw|slice(0, 240)|raw : post.Data|raw }} ... Click to read more</a></p> 
+                    <p class="post-meta">{{ post.Title }} * <span>{% trans %}Posted by{% endtrans %}</span> <a href="{{ path('user_show', {'id': post.author.id}) }}">{{ post.author }}</a> * {{post.Date|time_diff|trans|raw ? : 'just now'}}</p>
+                    <p>{{ post.Data|length > 240 ? post.Data|raw|slice(0, 240)|raw : post.Data|raw }} {% trans %}... Click to read more{% endtrans %}</a></p> 
                     </article>
                     </td>
                     </section>
@@ -69,7 +70,7 @@
             <tr>
             <td class="align-middle" style="width: 8%;"><td>
             <td class="frontpage" id="post" style="cursor: pointer;">
-            <p><br>No post created yet, press add, to add new post<br>gif..</p>
+            <p><br>{% trans %}No post created yet, press add, to add new post{% endtrans %}<br>gif..</p>
             </td>
             </tr>
             {% endif %}

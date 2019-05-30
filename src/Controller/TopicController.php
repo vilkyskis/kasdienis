@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security as ORM_SECURITY;
 
 /**
- * @Route("/topic")
+ * @Route("{_locale}/topic")
  */
 class TopicController extends AbstractController
 {
@@ -32,7 +32,7 @@ class TopicController extends AbstractController
      * @ORM_SECURITY("has_role('ROLE_USER')")
      * @Route("/new", name="topic_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request,TopicRepository $topicRepository): Response
     {
         $topic = new Topic();
         $form = $this->createForm(TopicType::class, $topic);
@@ -47,7 +47,7 @@ class TopicController extends AbstractController
         }
 
         return $this->render('topic/new.html.twig', [
-            'topic' => $topic,
+            'topic' => $topic,'topics' => $topicRepository->findAll(),
             'form' => $form->createView(),
         ]);
     }
@@ -73,10 +73,10 @@ class TopicController extends AbstractController
     }
 
     /**
-     * @ORM_SECURITY("has_role('ROLE_MODERATOR')")
+     * @ORM_SECURITY("has_role('ROLE_USER')")
      * @Route("/{id}/edit", name="topic_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Topic $topic): Response
+    public function edit(Request $request, Topic $topic,TopicRepository $topicRepository): Response
     {
         $form = $this->createForm(TopicType::class, $topic);
         $form->handleRequest($request);
@@ -90,13 +90,13 @@ class TopicController extends AbstractController
         }
 
         return $this->render('topic/edit.html.twig', [
-            'topic' => $topic,
+            'topic' => $topic,'topics' => $topicRepository->findAll(),
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @ORM_SECURITY("has_role('ROLE_MODERATOR')")
+     * @ORM_SECURITY("has_role('ROLE_USER')")
      * @Route("/{id}", name="topic_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Topic $topic): Response

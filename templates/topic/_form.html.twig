@@ -1,4 +1,29 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_errors(form) }}
+
+    <div class="">
+        {% trans %}Name{% endtrans %}
+        <br>
+        {{ form_widget(form.name, {'attr': {'style': 'width:100%;'}}) }}
+
+        <small>{{ form_help(form.name) }}</small>
+
+        <div class="form-error">
+            {{ form_errors(form.name) }}
+        </div>
+    </div>
+
+    <div >
+        {% trans %}Description{% endtrans %}<br>
+        {{ form_widget(form.description, {'attr': {'style': 'width:100%; height:200px;;'}}) }}
+
+        <small>{{ form_help(form.description) }}</small>
+
+        <div class="form-error">
+            {{ form_errors(form.description) }}
+        </div>
+    </div>
+    {{ form_rest(form) }}
+
+    <div class="text-center"><button class="btn btn-success" style="width:100%">{{ button_label|default('Save') }}</button></div>
 {{ form_end(form) }}

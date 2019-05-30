@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="lt" target-language="lt" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="4tFDpwt" resname="Enable dark mode">
+        <source>Enable dark mode</source>
+        <target>Įgalinti tamsujį rėžimą</target>
+      </trans-unit>
+      <trans-unit id="pwwByWb" resname="FRONTPAGE">
+        <source>FRONTPAGE</source>
+        <target>PAGRINDINIS</target>
+      </trans-unit>
+      <trans-unit id="KzMbw2Q" resname="Posted by">
+        <source>Posted by</source>
+        <target>Sukūrė</target>
+      </trans-unit>
+      <trans-unit id="qB9mCo1" resname="... Click to read more">
+        <source>... Click to read more</source>
+        <target>... Paspauskite, kad matyti daugiau</target>
+      </trans-unit>
+      <trans-unit id="hHWWyk2" resname="No topics created yet, please add at least one">
+        <source>No topics created yet, please add at least one</source>
+        <target>Nėra sukurtu temų, prašome pridėti bent vieną</target>
+      </trans-unit>
+      <trans-unit id="CM3_2Wc" resname="My posts">
+        <source>My posts</source>
+        <target>Mano įrašai</target>
+      </trans-unit>
+      <trans-unit id="LaPi6So" resname="My topics">
+        <source>My topics</source>
+        <target>Mano temos</target>
+      </trans-unit>
+      <trans-unit id="0FJ_Sz1" resname="Logout">
+        <source>Logout</source>
+        <target>Atsijungti</target>
+      </trans-unit>
+      <trans-unit id="nWMiwfT" resname="Login">
+        <source>Login</source>
+        <target>Prisijungti</target>
+      </trans-unit>
+      <trans-unit id="u3I07BJ" resname="Register">
+        <source>Register</source>
+        <target>Registruotis</target>
+      </trans-unit>
+      <trans-unit id="HX8IMhe" resname="Edit Topic">
+        <source>Edit Topic</source>
+        <target>__Edit Topic</target>
+      </trans-unit>
+      <trans-unit id="0LWZtqt" resname="Edit topic">
+        <source>Edit topic</source>
+        <target>__Edit topic</target>
+      </trans-unit>
+      <trans-unit id="KE7yMDj" resname="Mt topics">
+        <source>Mt topics</source>
+        <target>__Mt topics</target>
+      </trans-unit>
+      <trans-unit id="cG8zOXy" resname="No post created yet, press add, to add new post">
+        <source>No post created yet, press add, to add new post</source>
+        <target>__No post created yet, press add, to add new post</target>
+      </trans-unit>
+      <trans-unit id="3NHVIj9" resname="Name">
+        <source>Name</source>
+        <target>__Name</target>
+      </trans-unit>
+      <trans-unit id="Um4Ah8w" resname="Description">
+        <source>Description</source>
+        <target>__Description</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

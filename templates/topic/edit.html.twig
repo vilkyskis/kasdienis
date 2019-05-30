@@ -1,13 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Topic{% endblock %}
+{% block title %}{% trans %}Edit Topic{% endtrans %}{% endblock %}
+
+{% block navbar %}
+ <div id="topic-nav" class="text-center">
+        <a href="/" class="nav-link"><i class="fas fa-home"></i></a>
+        {% for topic_ in topics| sortbyfield('name') %}
+            <a href="{{ path('topic_show', {'id': topic_.id}) }}" class="nav-link">{{ topic_.name }}</a>         
+        {% endfor %}
+</div>
+<div id="login-nav" class="text-center">
+    {% if is_granted('ROLE_USER')%}
+<a href="{{ path('user_show',{'id' : app.user.id}) }}" class="nav-link">{{app.user.username|capitalize}}</a>
+                    <a href="{{ path('post_index') }}" class="nav-link">{% trans %}My posts{% endtrans %}</a>
+
+
+                    <a href="{{ path('topic_index') }}" class="nav-link">{% trans %}My topics{% endtrans %}</a>
+
+
+                    <a href="{{ path('fos_user_security_logout') }}" class="nav-link btn-danger text-white">{% trans %}Logout{% endtrans %}</a>
+
+            {% else %}
+
+<a href="{{ path('fos_user_security_login') }}" class="nav-link"><span class="glyphicon glyphicon-log-in"></span> {% trans %}Login{% endtrans %}</a>
+
+                <a href="{{ path('fos_user_registration_register') }}" class="nav-link btn-danger text-white">{% trans %}Register{% endtrans %}</a>
+
+            {% endif %}
+</div>
+<button onclick="window.location.href='/'" id="back-to-list" title="Go to list"><i class="fas fa-chevron-left"></i></button> 
+{% if app.user == topic.author %}
+<button onclick="window.location.href='{{ path('topic_edit', {'id': topic.id}) }}'" id="post-edit" title="Edit topic"><i class="fas fa-pen"></i></button>     
+    {{ include('topic/_delete_form.html.twig') }}
+{% endif %}
+{% endblock %}
+
 
 {% block body %}
-    <h1>Edit Topic</h1>
+    <div class="logo_index"><h1 class="text-center text-white" style="margin-top: 75px;font-size:70px;">{% trans %}Edit topic{% endtrans %}</h1><br>
+<div class='post-meta text-center' >{{topic.description}}</div></div>
+        <div class="container" style="position:absolute;top:215px;left: 375px;background-color: var(--second_color); margin-bottom:30px;-webkit-border-radius: 10px;border-radius: 10px;">
 
-    {{ include('topic/_form.html.twig', {'button_label': 'Update'}) }}
+    <br>
 
-    <a href="{{ path('topic_index') }}">back to list</a>
-
-    {{ include('topic/_delete_form.html.twig') }}
+    {{ include('topic/_form.html.twig', {'button_label': '{% trans %}Update{% endtrans %}'}) }}
+    <Br>
+    </div>
 {% endblock %}

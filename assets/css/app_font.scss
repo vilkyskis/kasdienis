@@ -141,6 +141,7 @@ a {
   font-weight: bold;
   &:hover, &:focus {
       border: 3px solid currentColor;
+      text-decoration: none;
   }
 }
 #navbar a{
@@ -394,8 +395,8 @@ article#post_show::first-letter {
 
 #post-add {
   position: absolute; /* Fixed/sticky position */
-  top: 385px; /* Place the button at the bottom of the page */
-  right: 180px; /* Place the button 30px from the right */
+  top: 30px; /* Place the button at the bottom of the page */
+  left: 90px; /* Place the button 30px from the right */
   z-index: 99; /* Make sure it does not overlap */
   border: none; /* Remove borders */
   outline: none; /* Remove outline */
@@ -531,6 +532,53 @@ article#post_show::first-letter {
 #post-edit:hover {
   background-color: darkgoldenrod; /* Add a dark-grey background on hover */
 }
+
+#topic-edit {
+  position: absolute; /* Fixed/sticky position */
+  top: 30px;/* Place the button at the bottom of the page */
+  left: 210px; /* Place the button 30px from the right */
+  z-index: 99; /* Make sure it does not overlap */
+  border: none; /* Remove borders */
+  outline: none; /* Remove outline */
+  background: var(--first_color); 
+  color: white; /* Text color */
+  cursor: pointer; /* Add a mouse pointer on hover */
+  width: 50px;
+    height: 50px;
+    display: block;
+    text-decoration: none;
+    -webkit-border-radius: 35px;
+    -moz-border-radius: 35px;
+    border-radius: 35px;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+#topic-edit i {
+  color: var(--secondary-color);
+  margin: 0;
+  position: relative;
+  font-size: 19px;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+#topic-edit:hover i {
+  color: #fff;
+  -ms-transform: rotate(360deg); /* IE 9 */
+  -webkit-transform: rotate(360deg); /* Chrome, Safari, Opera */
+  transform: rotate(360deg);
+}
+
+#topic-edit:hover {
+  background-color: darkgoldenrod; /* Add a dark-grey background on hover */
+}
+
 
 
 #back-to-list {

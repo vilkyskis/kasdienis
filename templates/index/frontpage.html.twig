@@ -2,12 +2,12 @@
 
 </style>  
 
-<div class="logo_index"><h1 class="text-center text-white" style="margin-top: 75px;font-size:70px;">FRONTPAGE</h1></div>
+<div class="logo_index"><h1 class="text-center text-white" style="margin-top: 75px;font-size:70px;">{% trans %}FRONTPAGE{% endtrans %}</h1></div>
         {% if is_granted('ROLE_USER')%}        
         <button onclick="window.location.href='{{ path('topic_new') }}'" id="post-add" title="Add topic"><i class="fas fa-plus"></i></button> 
         {% endif %}
     <div class="container" style="position:absolute;top:185px;left: 375px;margin-top:30px;margin-bottom:30px;">
-
+        {% if topics|length > 0 %}
         {% for topic in topics| sortbyfield('name') %}
         
         <div class="container" style="background-color: var(--second_color); margin-bottom:30px;-webkit-border-radius: 10px;border-radius: 10px;">
@@ -29,8 +29,8 @@
                     </td>
                     <td onclick="window.location.href='{{ path('post_show', {'id': post.id}) }}'" class="frontpage" id="post" style="cursor: pointer;">
                     <article class="post">
-                    <p class="post-meta">{{ post.Title }} * <span>Posted by</span> <a href="{{ path('user_show', {'id': post.author.id}) }}">{{ post.author }}</a> * {{post.Date|time_diff|trans|raw ? : 'just now'}}</p>
-                    <p>{{ post.Data|length > 240 ? post.Data|raw|slice(0, 240)|raw : post.Data|raw }} ... Click to read more</a></p> 
+                    <p class="post-meta">{{ post.Title }} * <span>{% trans %}Posted by{% endtrans %}</span> <a href="{{ path('user_show', {'id': post.author.id}) }}">{{ post.author }}</a> * {{post.Date|time_diff|trans|raw ? : 'just now'}}</p>
+                    <p>{{ post.Data|length > 240 ? post.Data|raw|slice(0, 240)|raw : post.Data|raw }} {% trans %} ... Click to read more {% endtrans %}</a></p> 
                     </article>
                     </td>
                     </section>
@@ -41,5 +41,8 @@
 
         </table></div>
         {% endfor %}
+        {% else %}
+            <div class="text-center bg-danger text-white">{% trans %}No topics created yet, please add at least one{% endtrans %}</div>
+        {% endif %}
     </div>
 </div>

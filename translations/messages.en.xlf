@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="4tFDpwt" resname="Enable dark mode">
+        <source>Enable dark mode</source>
+        <target>Enable dark mode</target>
+      </trans-unit>
+      <trans-unit id="pwwByWb" resname="FRONTPAGE">
+        <source>FRONTPAGE</source>
+        <target>FRONTPAGE</target>
+      </trans-unit>
+      <trans-unit id="KzMbw2Q" resname="Posted by">
+        <source>Posted by</source>
+        <target>Posted by</target>
+      </trans-unit>
+      <trans-unit id="qB9mCo1" resname="... Click to read more">
+        <source>... Click to read more</source>
+        <target>... Click to read more</target>
+      </trans-unit>
+      <trans-unit id="hHWWyk2" resname="No topics created yet, please add at least one">
+        <source>No topics created yet, please add at least one</source>
+        <target>No topics created yet, please add at least one</target>
+      </trans-unit>
+      <trans-unit id="CM3_2Wc" resname="My posts">
+        <source>My posts</source>
+        <target>My posts</target>
+      </trans-unit>
+      <trans-unit id="LaPi6So" resname="My topics">
+        <source>My topics</source>
+        <target>My topics</target>
+      </trans-unit>
+      <trans-unit id="0FJ_Sz1" resname="Logout">
+        <source>Logout</source>
+        <target>Logout</target>
+      </trans-unit>
+      <trans-unit id="nWMiwfT" resname="Login">
+        <source>Login</source>
+        <target>Login</target>
+      </trans-unit>
+      <trans-unit id="u3I07BJ" resname="Register">
+        <source>Register</source>
+        <target>Register</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

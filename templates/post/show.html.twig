@@ -10,7 +10,7 @@
 </div>
 <div id="login-nav" class="text-center">
     {% if is_granted('ROLE_USER')%}
-
+<a href="{{ path('user_show',{'id' : app.user.id}) }}" class="nav-link">{{app.user.username|capitalize}}</a>
                     <a href="{{ path('post_index') }}" class="nav-link">Posts</a>
 
 
@@ -77,6 +77,8 @@
     <b>Comments:</b><br>
     <table class="table table-borderless frontpage" id="seperator">
     <tbody>
+    {% if post.comments|length > 0 %}
+
     {% for comm in post.comments| sortbyfield('likedCount')|reverse %}
     <tr>
     <td class="align-middle" style="width: 8%"> {{ comm.likedBy|length }} 
@@ -101,6 +103,9 @@
         {% endif %}
 </td></tr>
     {% endfor %}
+    {% else %}
+    <tr>There are no comments yet</tr>
+    {% endif %}
             
         </tbody>
     </table>

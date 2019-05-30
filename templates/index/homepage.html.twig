@@ -11,20 +11,20 @@
 </div>
 <div id="login-nav" class="text-center">
     {% if is_granted('ROLE_USER')%}
-
-                    <a href="{{ path('post_index') }}" class="nav-link">Posts</a>
-
-
-                    <a href="{{ path('topic_index') }}" class="nav-link">Topic</a>
+<a href="{{ path('user_show',{'id' : app.user.id}) }}" class="nav-link">{{app.user.username|capitalize}}</a>
+                    <a href="{{ path('post_index') }}" class="nav-link">{% trans %}My posts{% endtrans %}</a>
 
 
-                    <a href="{{ path('fos_user_security_logout') }}" class="nav-link btn-danger text-white">Logout</a>
+                    <a href="{{ path('topic_index') }}" class="nav-link">{% trans %}My topics{% endtrans %}</a>
+
+
+                    <a href="{{ path('fos_user_security_logout') }}" class="nav-link btn-danger text-white">{% trans %}Logout{% endtrans %}</a>
 
             {% else %}
 
-<a href="{{ path('fos_user_security_login') }}" class="nav-link"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+<a href="{{ path('fos_user_security_login') }}" class="nav-link"><span class="glyphicon glyphicon-log-in"></span> {% trans %}Login{% endtrans %}</a>
 
-                <a href="{{ path('fos_user_registration_register') }}" class="nav-link btn-danger text-white">Register</a>
+                <a href="{{ path('fos_user_registration_register') }}" class="nav-link btn-danger text-white">{% trans %}Register{% endtrans %}</a>
 
             {% endif %}
 </div>

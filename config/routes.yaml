@@ -1,5 +1,30 @@
 fos_user:
   resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+index:
+    path:       /{_locale}/
+    controller: App\Controller\DefaultController::index
+    requirements:
+        _locale: en|lt
+
+topic:
+    path:       /{_locale}/topic/show/{index}
+    controller: App\Controller\TopicController::topic_show
+    requirements:
+        _locale: en|lt
+
+post:
+    path:       /{_locale}/post
+    controller: App\Controller\PostController::index
+    requirements:
+        _locale: en|lt
+
+user:
+    path:       /{_locale}/user
+    controller: App\Controller\UserController::index
+    requirements:
+        _locale: en|lt
+
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index

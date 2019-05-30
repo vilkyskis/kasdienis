@@ -1,59 +1,62 @@
-<?xml version="1.0"?>
-<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-    <file source-language="lt" datatype="plaintext" original="file.ext">
-        <body>
-            <trans-unit id="diff.ago.year">
-                <source>diff.ago.year</source>
-                <target>prieš metus|prieš %count% metus</target>
-            </trans-unit>
-            <trans-unit id="diff.ago.month">
-                <source>diff.ago.month</source>
-                <target>prieš mėnesį|prieš %count% mėnesius</target>
-            </trans-unit>
-            <trans-unit id="diff.ago.day">
-                <source>diff.ago.day</source>
-                <target>prieš %count% dieną|prieš %count% dienas</target>
-            </trans-unit>
-            <trans-unit id="diff.ago.hour">
-                <source>diff.ago.hour</source>
-                <target>prieš vieną valandą|prieš %count% valandas</target>
-            </trans-unit>
-            <trans-unit id="diff.ago.minute">
-                <source>diff.ago.minute</source>
-                <target>prieš vieną minutę|prieš %count% minutes</target>
-            </trans-unit>
-            <trans-unit id="diff.ago.second">
-                <source>diff.ago.second</source>
-                <target>prieš vieną sekundę|prieš %count% sekundes</target>
-            </trans-unit>
-            <trans-unit id="diff.empty">
-                <source>diff.empty</source>
-                <target>tik ką</target>
-            </trans-unit>
-            <trans-unit id="diff.in.second">
-                <source>diff.in.second</source>
-                <target>per vieną sekundę|per %count% sekundes</target>
-            </trans-unit>
-            <trans-unit id="diff.in.hour">
-                <source>diff.in.hour</source>
-                <target>per vieną valandą|per %count% valandas</target>
-            </trans-unit>
-            <trans-unit id="diff.in.minute">
-                <source>diff.in.minute</source>
-                <target>per vieną minutę|per %count% minutes</target>
-            </trans-unit>
-            <trans-unit id="diff.in.day">
-                <source>diff.in.day</source>
-                <target>per vieną dieną|per %count% dienas</target>
-            </trans-unit>
-            <trans-unit id="diff.in.month">
-                <source>diff.in.month</source>
-                <target>per vieną mėnesį|per %count% mėnesius</target>
-            </trans-unit>
-            <trans-unit id="diff.in.year">
-                <source>diff.in.year</source>
-                <target>per vienus metus|per %count% metus</target>
-            </trans-unit>
-        </body>
-    </file>
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="lt" target-language="lt" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="BJMjkzc" resname="diff.ago.year">
+        <source>diff.ago.year</source>
+        <target>prieš metus|prieš %count% metus</target>
+      </trans-unit>
+      <trans-unit id="QlOaaz7" resname="diff.ago.month">
+        <source>diff.ago.month</source>
+        <target>prieš mėnesį|prieš %count% mėnesius</target>
+      </trans-unit>
+      <trans-unit id="0icjxey" resname="diff.ago.day">
+        <source>diff.ago.day</source>
+        <target>prieš %count% dieną|prieš %count% dienas</target>
+      </trans-unit>
+      <trans-unit id="Qb4ReOq" resname="diff.ago.hour">
+        <source>diff.ago.hour</source>
+        <target>prieš vieną valandą|prieš %count% valandas</target>
+      </trans-unit>
+      <trans-unit id="ildUKt_" resname="diff.ago.minute">
+        <source>diff.ago.minute</source>
+        <target>prieš vieną minutę|prieš %count% minutes</target>
+      </trans-unit>
+      <trans-unit id="UQtErIZ" resname="diff.ago.second">
+        <source>diff.ago.second</source>
+        <target>prieš vieną sekundę|prieš %count% sekundes</target>
+      </trans-unit>
+      <trans-unit id="M4RAXb_" resname="diff.empty">
+        <source>diff.empty</source>
+        <target>tik ką</target>
+      </trans-unit>
+      <trans-unit id="VgQkGkv" resname="diff.in.second">
+        <source>diff.in.second</source>
+        <target>per vieną sekundę|per %count% sekundes</target>
+      </trans-unit>
+      <trans-unit id="dJQGobP" resname="diff.in.hour">
+        <source>diff.in.hour</source>
+        <target>per vieną valandą|per %count% valandas</target>
+      </trans-unit>
+      <trans-unit id="AFqulYH" resname="diff.in.minute">
+        <source>diff.in.minute</source>
+        <target>per vieną minutę|per %count% minutes</target>
+      </trans-unit>
+      <trans-unit id="vKk2WhV" resname="diff.in.day">
+        <source>diff.in.day</source>
+        <target>per vieną dieną|per %count% dienas</target>
+      </trans-unit>
+      <trans-unit id="INy1OSI" resname="diff.in.month">
+        <source>diff.in.month</source>
+        <target>per vieną mėnesį|per %count% mėnesius</target>
+      </trans-unit>
+      <trans-unit id="Zy1_IlC" resname="diff.in.year">
+        <source>diff.in.year</source>
+        <target>per vienus metus|per %count% metus</target>
+      </trans-unit>
+    </body>
+  </file>
 </xliff>

@@ -17,7 +17,7 @@ use Symfony\Component\Security\Core\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security as ORM_SECURITY;
 
 /**
- * @Route("/post")
+ * @Route("{_locale}/post")
  */
 class PostController extends AbstractController
 {
@@ -96,7 +96,7 @@ class PostController extends AbstractController
         }
 
         return $this->render('post/new.html.twig', [
-            'post' => $post,'topic_id' => $topic_id,
+            'post' => $post,'topic_id' => $topic_id,'topics' => $topics->findAll(),
             'form' => $form->createView(),
         ]);
     }
@@ -153,7 +153,7 @@ class PostController extends AbstractController
         }
 
         return $this->render('post/edit.html.twig', [
-            'post' => $post,'topic_id' => $topic,
+            'post' => $post,'topic_id' => $topic,'topics' => $topics->findAll(),
             'form' => $form->createView(),
         ]);
     }

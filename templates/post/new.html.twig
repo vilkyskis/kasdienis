@@ -2,10 +2,45 @@
 
 {% block title %}New Post{% endblock %}
 
+{% block navbar %}
+ <div id="topic-nav" class="text-center">
+        <a href="/" class="nav-link"><i class="fas fa-home"></i></a>
+        {% for topic in topics| sortbyfield('name') %}
+            <a href="{{ path('topic_show', {'id': topic.id}) }}" class="nav-link">{{ topic.name }}</a>         
+        {% endfor %}
+</div>
+<div id="login-nav" class="text-center">
+    {% if is_granted('ROLE_USER')%}
+<a href="{{ path('user_show',{'id' : app.user.id}) }}" class="nav-link">{{app.user.username|capitalize}}</a>
+                    <a href="{{ path('post_index') }}" class="nav-link">Posts</a>
+
+
+                    <a href="{{ path('topic_index') }}" class="nav-link">Topic</a>
+
+
+                    <a href="{{ path('fos_user_security_logout') }}" class="nav-link btn-danger text-white">Logout</a>
+
+            {% else %}
+
+<a href="{{ path('fos_user_security_login') }}" class="nav-link"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+
+                <a href="{{ path('fos_user_registration_register') }}" class="nav-link btn-danger text-white">Register</a>
+
+            {% endif %}
+</div><button onclick="window.location.href='/'" id="back-to-list" title="Go to list"><i class="fas fa-chevron-left"></i></button> 
+{% if app.user == post.author %}
+<button onclick="window.location.href='{{ path('post_edit', {'id': post.id,'topic' : post.topic.id}) }}'" id="post-edit" title="Edit post"><i class="fas fa-pen"></i></button> 
+    {{ include('post/_delete_form.html.twig') }}
+
+{% endif %}
+{% endblock %}
+
 {% block body %}
-    <h1>Create new Post</h1>
 
-    {{ include('post/_form.html.twig') }}
+<div class="logo_index"><h1 class="text-center text-white" style="margin-top: 75px;font-size:70px;">Create new Post</h1></div>
 
-    <a href="{{ path('post_index') }}">back to list</a>
+    <div class="container" id="post" style="position:relative;top:-35px;">
+        {{ include('post/_form.html.twig') }}
+    </div>
+    
 {% endblock %}
