@@ -1,5 +1,18 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+
+    <div ><br>
+        {{ form_widget(form.comment, {'attr': {'style': 'width:100%;', 'placeholder': 'Add your comment here...'|trans}}) }}
+
+        <small>{{ form_help(form.comment) }}</small>
+
+        <div class="form-error">
+            {{ form_errors(form.comment) }}
+        </div>
+    </div>
+
+    <div style="display:none;">
+        {{ form_rest(form) }}
+    </div>
     
-    <button class="btn" style="background-color: var(--bg-color);color:var(--font-color);"><i class="fas fa-comment"> {{ button_label|default('Comment') }}</i></button>
+    <button class="btn btn-lg btn-block" style="background-color: var(--bg-color);color:var(--font-color);"><i class="fas fa-comment"> {% trans %}Comment{% endtrans %}</i></button>
 {{ form_end(form) }}

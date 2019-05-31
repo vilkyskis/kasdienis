@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security as ORM_SECURITY;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 /**
  * @Route("{_locale}/post")
@@ -88,6 +89,24 @@ class PostController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // $file stores the uploaded PDF file
+            /** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
+            $file = $file = $request->files->get('post2')['image'];
+            if($file){
+                $uploads_dir = $this->getParameter('image_upload_dir');
+                $filename = md5(uniqid()).'.'.$file->guessExtension();
+                try{
+                    $file->move(
+                        $uploads_dir,
+                        $filename
+                    );
+                }catch(FileException $ex){
+
+                }
+                $post->setImage($filename);
+            }
+
+            
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($post);
             $entityManager->flush();
@@ -139,7 +158,7 @@ class PostController extends AbstractController
      * @ORM_SECURITY("has_role('ROLE_USER')")
      * @Route("/{id}/edit/{topic}", name="post_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Post $post,$topic, TopicRepository $topics): Response
+    public function edit(Request $request, Post $post,$topic, TopicRepository $topics,$id): Response
     {
         $form = $this->createForm(Post2Type::class, $post,array('topic' => $topics->find($topic)));
         $form->handleRequest($request);

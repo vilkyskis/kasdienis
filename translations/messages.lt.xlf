@@ -47,27 +47,95 @@
       </trans-unit>
       <trans-unit id="HX8IMhe" resname="Edit Topic">
         <source>Edit Topic</source>
-        <target>__Edit Topic</target>
+        <target>Redaguoti temą</target>
       </trans-unit>
       <trans-unit id="0LWZtqt" resname="Edit topic">
         <source>Edit topic</source>
-        <target>__Edit topic</target>
-      </trans-unit>
-      <trans-unit id="KE7yMDj" resname="Mt topics">
-        <source>Mt topics</source>
-        <target>__Mt topics</target>
+        <target>Redaguoti temą</target>
       </trans-unit>
       <trans-unit id="cG8zOXy" resname="No post created yet, press add, to add new post">
         <source>No post created yet, press add, to add new post</source>
-        <target>__No post created yet, press add, to add new post</target>
+        <target>Nėra sukurtų įrašų, prešome pridėti bent vieną</target>
       </trans-unit>
       <trans-unit id="3NHVIj9" resname="Name">
         <source>Name</source>
-        <target>__Name</target>
+        <target>Pavadinimas</target>
       </trans-unit>
       <trans-unit id="Um4Ah8w" resname="Description">
         <source>Description</source>
-        <target>__Description</target>
+        <target>Aprašymas</target>
+      </trans-unit>
+      <trans-unit id="bFlCcBq" resname="Number of posts :">
+        <source>Number of posts :</source>
+        <target>Įrašų kiekis :</target>
+      </trans-unit>
+      <trans-unit id="y3H9nLF" resname="Number of active users:">
+        <source>Number of active users:</source>
+        <target>Aktyvių vartotojų kiekis:</target>
+      </trans-unit>
+      <trans-unit id="zFS1DFF" resname="Edit Post">
+        <source>Edit Post</source>
+        <target>Redaguoti įrašą</target>
+      </trans-unit>
+      <trans-unit id="IgckYvn" resname="New Post">
+        <source>New Post</source>
+        <target>Naujas įrašas</target>
+      </trans-unit>
+      <trans-unit id="UtdThXS" resname="Create new Post">
+        <source>Create new Post</source>
+        <target>Kurti naują įrašą</target>
+      </trans-unit>
+      <trans-unit id="oZMxR_f" resname="Edit post">
+        <source>Edit post</source>
+        <target>Redaguoti įrašą</target>
+      </trans-unit>
+      <trans-unit id="rcuITx2" resname="Post by">
+        <source>Post by</source>
+        <target>Įrašą sukūrė</target>
+      </trans-unit>
+      <trans-unit id="x0ypH3r" resname="You can only comment when you are logged in">
+        <source>You can only comment when you are logged in</source>
+        <target>Komentuoti galite tik prisijungę</target>
+      </trans-unit>
+      <trans-unit id="IA1kfRF" resname="Comments:">
+        <source>Comments:</source>
+        <target>Komentarai:</target>
+      </trans-unit>
+      <trans-unit id="kBXnY0q" resname="There are no comments yet">
+        <source>There are no comments yet</source>
+        <target>Dar nėra sukurta komentarų</target>
+      </trans-unit>
+      <trans-unit id="REE8PZe" resname="Are you sure you want to delete this item?">
+        <source>Are you sure you want to delete this item?</source>
+        <target>Ar jūs tikrai norite šalinti?</target>
+      </trans-unit>
+      <trans-unit id="ysknAEx" resname="Delete post">
+        <source>Delete post</source>
+        <target>Šalinti įrašą</target>
+      </trans-unit>
+      <trans-unit id="fozSBW2" resname="Title">
+        <source>Title</source>
+        <target>Pavadinimas</target>
+      </trans-unit>
+      <trans-unit id="zsOpuJs" resname="Data">
+        <source>Data</source>
+        <target>Straipsnis</target>
+      </trans-unit>
+      <trans-unit id="f8mmq.9" resname="Create new Topic">
+        <source>Create new Topic</source>
+        <target>Kurti naują temą</target>
+      </trans-unit>
+      <trans-unit id="9t_YOs4" resname="Delete topic">
+        <source>Delete topic</source>
+        <target>Šalinti temą</target>
+      </trans-unit>
+      <trans-unit id="1IiRbmM" resname="Add your comment here...">
+        <source>Add your comment here...</source>
+        <target>Parašykite savo komentarą čia...</target>
+      </trans-unit>
+      <trans-unit id="RPXj__x" resname="Comment">
+        <source>Comment</source>
+        <target>Komentuoti</target>
       </trans-unit>
     </body>
   </file>

@@ -1,13 +1,17 @@
 {% trans_default_domain 'FOSUserBundle' %}
-<link rel="stylesheet" type="text/css" href="/css/login.css">
-<link rel="stylesheet" type="text/css" href="/css/util.css">
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-<div class="limiter text-center">
-    <div class="container-login100" style="background-image: url(https://i.pinimg.com/originals/8f/c5/19/8fc519d7444926757b6bdc1253ae6448.jpg);">
-        <div class="wrap-login100 p-t-190 p-b-30">
+
+        <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
+        <link rel="stylesheet" type="text/css" href="/css/util.css">
+
+                <div class="logo_login"><h1 class="text-center text-white" style="margin-top: 75px;font-size:70px;"></h1>
+                <div class="container" style="position:absolute;top:185px;left: 375px;margin-top:30px;margin-bottom:30px; z-index:99; width:100%">
+                <button onclick="window.location.href='{{ path('index') }}'" id="back-to-list" title="{% trans %}Go to list{% endtrans %}"><i class="fas fa-chevron-left"></i></button> 
+<button onclick="window.location.href='{{ path('fos_user_registration_register') }}'" id="post-edit" title="{% trans %}Register{% endtrans %}"><i class="fas fa-user-plus"></i></button> 
+                <div class="container text-center" style="background-color: var(--login-color); ;-webkit-border-radius: 10px;border-radius: 10px;">
             <form action="{{ path("fos_user_security_check") }}" method="post" class="login100-form validate-form">
-                <span class="login100-form-title p-t-20 p-b-45" style="font-size: 100px">LOGIN</span>
+                <span class="login100-form-title p-t-20 p-b-45 noselect" style="font-size: 100px">{% trans %}Login{% endtrans %}</span>
 
                 {% if csrf_token %}
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
@@ -18,9 +22,12 @@
                     </div>
                 {% endif %}
 
-                <div class="wrap-input100 validate-input m-b-10" data-validate="Username is required">
-                    <input type="text"
-                           class="input100"
+                <div class="input-group mb-3 text-center" style="text-align:center">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-user" style="width:5%;"></i></span>
+                </div>
+                <input type="text"
+                           class="form-control p-3 text-center"
                            placeholder="Email"
                            id="username"
                            name="_username"
@@ -28,29 +35,25 @@
                            required="required"
                            autocomplete="username"
                            aria-label="Username"
-                           aria-describedby="basic-addon1" />
-                    <span class="focus-input100"></span>
-                    <span class="symbol-input100">
-							<i class="fa fa-user"></i>
-						</span>
+                           aria-describedby="basic-addon1"
+                           style="width:96%;color:var(--font-color)" />
                 </div>
 
-
-                <div class="wrap-input100 validate-input m-b-10" data-validate="Password is required">
-                        <input type="password"
-                               class="input100"
+                <div class="input-group mb-3 text-center" style="text-align:center">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-lock"></i></span>
+                </div>
+                <input type="password"
+                               class="form-control  p-3 text-center"
                                id="password"
                                name="_password"
                                required="required"
                                autocomplete="current-password"
-                               placeholder="Password" />
-                    <span class="focus-input100"></span>
-                    <span class="symbol-input100">
-							<i class="fa fa-lock"></i>
-						</span>
+                               placeholder="Password"
+                               style="width:96%;color:var(--font-color)" />
                 </div>
 
-                <div id="remember" class="checkbox text-center">
+                <div id="remember" class="checkbox text-center noselect">
                     <label class="text-white" for="remember_me">
                         <input type="checkbox" id="remember_me" name="_remember_me" value="on">
                         {{ 'security.login.remember_me'|trans }}
@@ -58,65 +61,27 @@
                 </div>
 
                 <div class="container-login100-form-btn p-t-10">
-                    <button class="login100-form-btn" name="_submit" type="submit">
-                        Login
+                    <button class="nav-link btn btn-white btn-lg btn-block" name="_submit" type="submit">
+                       {% trans %}Login{% endtrans %}
                     </button>
                 </div>
 
-                <div class="text-center w-full p-t-25 p-b-230">
+                <div class="text-center w-full p-t-25 p-b-30 noselect">
                     <a href="{{ path('fos_user_resetting_request') }}" class="txt1">
-                        Forgot Username / Password?
+                        {% trans %}Forgot Username / Password?{% endtrans %}
                     </a>
                 </div>
 
-                <div class="text-center w-full">
+                <div class="text-center w-full noselect">
                     <a class="txt1" href="{{ path('fos_user_registration_register') }}">
-                        Create new account
-                        <i class="fa fa-long-arrow-right"></i>
+                        {% trans %}Create new account{% endtrans %}
                     </a>
                 </div>
-
-{#
-
-
-                <label class="col-md-8 lbl">Email</label>
-                <div class="input-group mb-3">
-                    #}
-{#<label for="username">{{ 'security.login.username'|trans }}</label>#}{#
-
-                    <input type="text"
-                           class="form-control"
-                           placeholder="Email"
-                           id="username"
-                           name="_username"
-                           value="{{ last_username }}"
-                           required="required"
-                           autocomplete="username"
-                           aria-label="Username"
-                           aria-describedby="basic-addon1" />
-                    #}
-{# <input type="text" class="form-control" placeholder="Username" >#}{#
-
-                </div>
-                <label class="col-md-8 lbl">Password</label>
-                <div class="input-group mb-3">
-                    <input type="password"
-                           id="password"
-                           name="_password"
-                           required="required"
-                           autocomplete="current-password"
-                           class="form-control"
-                           placeholder="Password" />
-                </div>
-
-                <button class="btn btn-primary btn-block btn-signin" name="_submit" type="submit">Sign in</button>
-                <a href="{{ path('fos_user_resetting_request') }}" class="btn">Forgot your password</a>
-                <a href="{{ path('fos_user_registration_register') }}" class="btn">Register</a>
-#}
-
-                {#<input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />#}
-            </form>
+                </form>
+            </div>
         </div>
     </div>
-</div>
+
+            
+
 

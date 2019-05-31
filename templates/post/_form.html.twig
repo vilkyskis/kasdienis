@@ -3,7 +3,7 @@
     {{ form_errors(form) }}
 
     <div class="">
-        {{ form_label(form.Title) }}<br>
+        {% trans %}Title{% endtrans %}<br>
         {{ form_widget(form.Title, {'attr': {'style': 'width:100%;'}}) }}
 
         <small>{{ form_help(form.Title) }}</small>
@@ -14,7 +14,7 @@
     </div>
 
     <div >
-        {{ form_label(form.Data) }}<br>
+        {% trans %}Data{% endtrans %}<br>
         {{ form_widget(form.Data, {'attr': {'style': 'width:100%; height:200px;;'}}) }}
 
         <small>{{ form_help(form.Data) }}</small>
@@ -23,9 +23,11 @@
             {{ form_errors(form.Data) }}
         </div>
     </div>
+
+    {{ form_row(form.image) }}
     
 <br>
-    <div class="text-center"><button class="btn btn-success" style="width:100%">{{ button_label|default('Save') }}</button></div>
+    <div class="text-center"><button class="btn btn-success" style="width:100%">{{ button_label|default('{% trans %}Save{% endtrans %}') }}</button></div>
     <div style="display:none;">
     {{ form_rest(form) }}
     </div>

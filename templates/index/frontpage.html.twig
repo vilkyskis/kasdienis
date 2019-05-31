@@ -12,10 +12,13 @@
         
         <div class="container" style="background-color: var(--second_color); margin-bottom:30px;-webkit-border-radius: 10px;border-radius: 10px;">
         {% if topic.posts|length > 0 %}
-        <br><h1 class="text-center">// <a href="{{ path('topic_show', {'id': topic.id}) }}">{{ topic.name }}</a></h1><br>
+        <br><h1 class="text-center">// <a href="{{ path('topic_show', {'id': topic.id}) }}">{{ topic.name }}</a></h1>
+        <div class="post-meta text-center">{% trans %}Number of posts :{% endtrans %} {{topic.posts|length}} <br>
+        {% trans %}Number of active users:{% endtrans %} {{topic.getAuthorsCount(topic.posts)|length}}
+        </div>
         <table class="table table-borderless frontpage" id="seperator">
 
-            {% for post in posts | sortbyfield('upvotes')|reverse%} 
+            {% for post in topic.posts | sortbyfield('upvotes')|reverse [:4]%} 
                 {% if post.topic == topic.name %}
                     <tr>
                     <section>
@@ -30,7 +33,7 @@
                     <td onclick="window.location.href='{{ path('post_show', {'id': post.id}) }}'" class="frontpage" id="post" style="cursor: pointer;">
                     <article class="post">
                     <p class="post-meta">{{ post.Title }} * <span>{% trans %}Posted by{% endtrans %}</span> <a href="{{ path('user_show', {'id': post.author.id}) }}">{{ post.author }}</a> * {{post.Date|time_diff|trans|raw ? : 'just now'}}</p>
-                    <p>{{ post.Data|length > 240 ? post.Data|raw|slice(0, 240)|raw : post.Data|raw }} {% trans %} ... Click to read more {% endtrans %}</a></p> 
+                    <p>{% if post.image %}  <img src="{{ asset('uploads/images/'~ post.image) }}"/> {% endif %}{{ post.Data|raw }}</a></p> 
                     </article>
                     </td>
                     </section>

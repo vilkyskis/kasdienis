@@ -126,4 +126,39 @@ class Topic
 
         return $this;
     }
+
+    public function getAuthorsCount($posts)
+    {
+        $authors = array();
+        foreach($posts as $post){
+            // Count every poster
+            $author = $post->getAuthor();
+            if(!in_array($author,$authors)){
+                $authors[] = $author;
+            }
+
+            // Count every commenter
+            foreach($post->getComments() as $comment){
+                $author = $comment->getAuthor();
+                if(!in_array($author,$authors)){
+                    $authors[] = $author;
+                }
+
+                //Count every comment liker
+                foreach($comment->getLikedBy() as $user_){
+                    if(!in_array($user_,$authors)){
+                        $authors[] = $user_;
+                    }
+                }
+            }
+
+            //Count every post liker
+            foreach($post->getLikedBy() as $user){
+                if(!in_array($user,$authors)){
+                    $authors[] = $user;
+                }
+            }
+        }
+        return $authors;
+    }
 }

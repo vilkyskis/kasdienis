@@ -9,6 +9,50 @@
         <source>security.login.remember_me</source>
         <target>Prisiminti mane</target>
       </trans-unit>
+      <trans-unit id=".ndupSK" resname="registration.check_email">
+        <source>registration.check_email</source>
+        <target>Pažiūrėkite el.paštą</target>
+      </trans-unit>
+      <trans-unit id="B.ZozIs" resname="registration.confirmed">
+        <source>registration.confirmed</source>
+        <target>Registracija patvirtinta</target>
+      </trans-unit>
+      <trans-unit id="_wd.d62" resname="registration.back">
+        <source>registration.back</source>
+        <target>Grįžti</target>
+      </trans-unit>
+      <trans-unit id="N.aTMve" resname="registration.email.subject">
+        <source>registration.email.subject</source>
+        <target>El.pašto tema</target>
+      </trans-unit>
+      <trans-unit id="hN23SFM" resname="registration.email.message">
+        <source>registration.email.message</source>
+        <target>El.pašto žinutė</target>
+      </trans-unit>
+      <trans-unit id="u3I07BJ" resname="Register">
+        <source>Register</source>
+        <target>Registruotis</target>
+      </trans-unit>
+      <trans-unit id="qkV9dg6" resname="Go to list">
+        <source>Go to list</source>
+        <target>Grįžti į sąrašą</target>
+      </trans-unit>
+      <trans-unit id="nWMiwfT" resname="Login">
+        <source>Login</source>
+        <target>Prisijungti</target>
+      </trans-unit>
+      <trans-unit id="hmX3IJA" resname="registration.submit">
+        <source>registration.submit</source>
+        <target>Patvirtinti registraciją</target>
+      </trans-unit>
+      <trans-unit id="SMKVhUu" resname="Forgot Username / Password?">
+        <source>Forgot Username / Password?</source>
+        <target>Pamiršote prisijungimo vardą / Slaptažodį?</target>
+      </trans-unit>
+      <trans-unit id=".4ZN4fY" resname="Create new account">
+        <source>Create new account</source>
+        <target>Sukurti naują vartotoją</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -4,7 +4,7 @@
 
 {% block navbar %}
  <div id="topic-nav" class="text-center">
-        <a href="/" class="nav-link"><i class="fas fa-home"></i></a>
+        <a href="{{ path('index') }}" class="nav-link"><i class="fas fa-home"></i></a>
         {% for topic_ in topics| sortbyfield('name') %}
             <a href="{{ path('topic_show', {'id': topic_.id}) }}" class="nav-link">{{ topic_.name }}</a>         
         {% endfor %}
@@ -28,7 +28,7 @@
 
             {% endif %}
 </div>
-<button onclick="window.location.href='/'" id="back-to-list" title="Go to list"><i class="fas fa-chevron-left"></i></button> 
+<button onclick="window.location.href='{{ path('index') }}'" id="back-to-list" title="Go to list"><i class="fas fa-chevron-left"></i></button> 
 {% if app.user == topic.author %}
 <button onclick="window.location.href='{{ path('topic_edit', {'id': topic.id}) }}'" id="topic-edit" title="Edit topic"><i class="fas fa-pen"></i></button>     
     {{ include('topic/_delete_form.html.twig') }}

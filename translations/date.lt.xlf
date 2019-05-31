@@ -7,27 +7,27 @@
     <body>
       <trans-unit id="BJMjkzc" resname="diff.ago.year">
         <source>diff.ago.year</source>
-        <target>prieš metus|prieš %count% metus</target>
+        <target>prieš metus|prieš %count% metus|prieš %count% metų</target>
       </trans-unit>
       <trans-unit id="QlOaaz7" resname="diff.ago.month">
         <source>diff.ago.month</source>
-        <target>prieš mėnesį|prieš %count% mėnesius</target>
+        <target>prieš mėnesį|prieš %count% mėnesius|prieš %count% mėnesių</target>
       </trans-unit>
       <trans-unit id="0icjxey" resname="diff.ago.day">
         <source>diff.ago.day</source>
-        <target>prieš %count% dieną|prieš %count% dienas</target>
+        <target>prieš %count% dieną|prieš %count% dienas|prieš %count% dienų</target>
       </trans-unit>
       <trans-unit id="Qb4ReOq" resname="diff.ago.hour">
         <source>diff.ago.hour</source>
-        <target>prieš vieną valandą|prieš %count% valandas</target>
+        <target>prieš valandą|prieš %count% valandas|prieš %count% valandų</target>
       </trans-unit>
       <trans-unit id="ildUKt_" resname="diff.ago.minute">
         <source>diff.ago.minute</source>
-        <target>prieš vieną minutę|prieš %count% minutes</target>
+        <target>prieš vieną minutę|prieš %count% minutes|prieš %count% minučių</target>
       </trans-unit>
       <trans-unit id="UQtErIZ" resname="diff.ago.second">
         <source>diff.ago.second</source>
-        <target>prieš vieną sekundę|prieš %count% sekundes</target>
+        <target>prieš vieną sekundę|prieš %count% sekundes|prieš %count% sekundžių</target>
       </trans-unit>
       <trans-unit id="M4RAXb_" resname="diff.empty">
         <source>diff.empty</source>
@@ -35,27 +35,27 @@
       </trans-unit>
       <trans-unit id="VgQkGkv" resname="diff.in.second">
         <source>diff.in.second</source>
-        <target>per vieną sekundę|per %count% sekundes</target>
+        <target>per vieną sekundę|per %count% sekundes|per %count% sekundžių</target>
       </trans-unit>
       <trans-unit id="dJQGobP" resname="diff.in.hour">
         <source>diff.in.hour</source>
-        <target>per vieną valandą|per %count% valandas</target>
+        <target>per vieną valandą|per %count% valandas|per %count% valandų</target>
       </trans-unit>
       <trans-unit id="AFqulYH" resname="diff.in.minute">
         <source>diff.in.minute</source>
-        <target>per vieną minutę|per %count% minutes</target>
+        <target>per vieną minutę|per %count% minutes|per %count% minučių</target>
       </trans-unit>
       <trans-unit id="vKk2WhV" resname="diff.in.day">
         <source>diff.in.day</source>
-        <target>per vieną dieną|per %count% dienas</target>
+        <target>per vieną dieną|per %count% dienas|per %count% dienų</target>
       </trans-unit>
       <trans-unit id="INy1OSI" resname="diff.in.month">
         <source>diff.in.month</source>
-        <target>per vieną mėnesį|per %count% mėnesius</target>
+        <target>per vieną mėnesį|per %count% mėnesius|per %count% mėnesių</target>
       </trans-unit>
       <trans-unit id="Zy1_IlC" resname="diff.in.year">
         <source>diff.in.year</source>
-        <target>per vienus metus|per %count% metus</target>
+        <target>per vienus metus|per %count% metus|per %count% metų</target>
       </trans-unit>
     </body>
   </file>

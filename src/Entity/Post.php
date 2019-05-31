@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
@@ -60,6 +61,13 @@ class Post
      * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="liked_posts")
      */
     private $likedBy;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Assert\File(mimeTypes={"image/png","image/jpeg","image/jpg","image/gif"}, maxSize="5242880")
+     */
+    private $image;
 
     public function __construct()
     {
@@ -203,6 +211,18 @@ class Post
         if ($this->likedBy->contains($likedBy)) {
             $this->likedBy->removeElement($likedBy);
         }
+
+        return $this;
+    }
+
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image)
+    {
+        $this->image = $image;
 
         return $this;
     }

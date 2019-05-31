@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Post;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -30,6 +31,10 @@ class Post2Type extends AbstractType
             ->add('author',null,array('attr'=>array('style'=>'visibility:hidden'),'label'=>false,
                 'data' => $this->security->getUser()
             ))
+            ->add('image',FileType::class,[
+                'label' => 'Please upload an image',
+                'required'=>false
+            ])
         ;
     }
 

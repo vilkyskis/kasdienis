@@ -4,12 +4,19 @@
 
 {% block navbar %}
  <div id="topic-nav" class="text-center">
-        <a href="/" class="nav-link"><i class="fas fa-home"></i></a>
+        <a href="{{ path('index') }}" class="nav-link"><i class="fas fa-home"></i></a>
         {% for topic in topics| sortbyfield('name') %}
             <a href="{{ path('topic_show', {'id': topic.id}) }}" class="nav-link">{{ topic.name }}</a>         
         {% endfor %}
 </div>
 <div id="login-nav" class="text-center">
+<div class="row">
+<a href="/lt/" class="nav-link col ml-3">
+<span class="flag-icon flag-icon-lt"></span>
+</a>
+<a href="/en/" class="nav-link col mr-3">
+<span class="flag-icon flag-icon-gb"></span>
+</a></div>
     {% if is_granted('ROLE_USER')%}
 <a href="{{ path('user_show',{'id' : app.user.id}) }}" class="nav-link">{{app.user.username|capitalize}}</a>
                     <a href="{{ path('post_index') }}" class="nav-link">{% trans %}My posts{% endtrans %}</a>
@@ -28,8 +35,12 @@
 
             {% endif %}
 </div>
+
+
+
 {% endblock %}
 
 {% block body %}
     {% include 'index/frontpage.html.twig' %}
 {% endblock %}
+
