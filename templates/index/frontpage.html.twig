@@ -6,10 +6,9 @@
         {% if is_granted('ROLE_USER')%}        
         <button onclick="window.location.href='{{ path('topic_new') }}'" id="post-add" title="Add topic"><i class="fas fa-plus"></i></button> 
         {% endif %}
-    <div class="container" style="position:absolute;top:185px;left: 375px;margin-top:30px;margin-bottom:30px;">
+    <div class="container" style="position:absolute;top:155px;left: 375px;margin-top:30px;margin-bottom:30px;">
         {% if topics|length > 0 %}
         {% for topic in topics| sortbyfield('name') %}
-        
         <div class="container" style="background-color: var(--second_color); margin-bottom:30px;-webkit-border-radius: 10px;border-radius: 10px;">
         {% if topic.posts|length > 0 %}
         <br><h1 class="text-center">// <a href="{{ path('topic_show', {'id': topic.id}) }}">{{ topic.name }}</a></h1>

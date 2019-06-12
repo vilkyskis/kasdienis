@@ -9,6 +9,10 @@
         <source>security.login.remember_me</source>
         <target>Remember me</target>
       </trans-unit>
+      <trans-unit id="B.ZozIs" resname="registration.confirmed">
+        <source>registration.confirmed</source>
+        <target>Your registration is confirmed</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -19,10 +19,10 @@
 </a></div>
     {% if is_granted('ROLE_USER')%}
 <a href="{{ path('user_show',{'id' : app.user.id}) }}" class="nav-link">{{app.user.username|capitalize}}</a>
-                    <a href="{{ path('post_index') }}" class="nav-link">{% trans %}My posts{% endtrans %}</a>
+                    <a href="{{ path('post_index') }}" class="nav-link"><div class="button">{% trans %}My posts{% endtrans %} <span class="button__badge">{{app.user.createdPosts|length}}</span></div></a>
 
 
-                    <a href="{{ path('topic_index') }}" class="nav-link">{% trans %}My topics{% endtrans %}</a>
+                    <a href="{{ path('topic_index') }}" class="nav-link"><div class="button">{% trans %}My topics{% endtrans %} <span class="button__badge">{{app.user.topics|length}}</span></div></a>
 
 
                     <a href="{{ path('fos_user_security_logout') }}" class="nav-link btn-danger text-white">{% trans %}Logout{% endtrans %}</a>

@@ -2,36 +2,74 @@
 
 {% block title %}Topic index{% endblock %}
 
-{% block body %}
-<div class="container">
-    <h1>Topic index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Posts</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for topic in topics %}
-            <tr>
-                <td>{{ topic.name }}</td>
-                <td>{{ topic.posts|length }}</td>
-                <td>
-                    <a href="{{ path('topic_show', {'id': topic.id}) }}">show</a>
-                    <a href="{{ path('topic_edit', {'id': topic.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
+{% block navbar %}
+ <div id="topic-nav" class="text-center">
+        <a href="{{ path('index') }}" class="nav-link"><i class="fas fa-home"></i></a>
+        {% for topic in topics| sortbyfield('name') %}
+            <a href="{{ path('topic_show', {'id': topic.id}) }}" class="nav-link">{{ topic.name }}</a>         
         {% endfor %}
-        </tbody>
-    </table>
+</div>
+<div id="login-nav" class="text-center">
+<div class="row">
+<a href="/lt/" class="nav-link col ml-3">
+<span class="flag-icon flag-icon-lt"></span>
+</a>
+<a href="/en/" class="nav-link col mr-3">
+<span class="flag-icon flag-icon-gb"></span>
+</a></div>
+    {% if is_granted('ROLE_USER')%}
+<a href="{{ path('user_show',{'id' : app.user.id}) }}" class="nav-link">{{app.user.username|capitalize}}</a>
+                    <a href="{{ path('post_index') }}" class="nav-link"><div class="button">{% trans %}My posts{% endtrans %} <span class="button__badge">{{app.user.createdPosts|length}}</span></div></a>
 
-    <a href="{{ path('topic_new') }}">Create new</a>
-    </div>
+
+                    <a href="{{ path('topic_index') }}" class="nav-link"><div class="button">{% trans %}My topics{% endtrans %} <span class="button__badge">{{app.user.topics|length}}</span></div></a>
+
+
+                    <a href="{{ path('fos_user_security_logout') }}" class="nav-link btn-danger text-white">{% trans %}Logout{% endtrans %}</a>
+
+            {% else %}
+
+<a href="{{ path('fos_user_security_login') }}" class="nav-link"><span class="glyphicon glyphicon-log-in"></span> {% trans %}Login{% endtrans %}</a>
+
+                <a href="{{ path('fos_user_registration_register') }}" class="nav-link btn-danger text-white">{% trans %}Register{% endtrans %}</a>
+
+            {% endif %}
+</div>
+
+{% endblock %}
+
+{% block body %}
+
+<div class="logo_index"><h1 class="text-center text-white" style="margin-top: 75px;font-size:70px;">{% trans %}My topics{% endtrans %}</h1></div>
+<button onclick="window.location.href='{{ path('index') }}'" id="back-to-list" title="Go to list"><i class="fas fa-chevron-left"></i></button> 
+<div class="container" style="position:absolute;top:185px;left: 375px;margin-top:30px;margin-bottom:30px;">
+    <div class="container" style="background-color: var(--second_color); margin-bottom:30px;-webkit-border-radius: 10px;border-radius: 10px;">
+            {% if app.user.topics|length > 0 %}
+
+        <table class="table table-borderless frontpage" id="seperator">
+
+            {% for topic in app.user.topics | sortbyfield('name')|reverse%} 
+                    <tr>
+                    <section>
+                    <td onclick="window.location.href='{{ path('topic_show', {'id': topic.id}) }}'" class="frontpage" id="post" style="cursor: pointer;">
+                    <article class="post">
+                    <p class="post-meta">{{ topic.name }}</p>
+                    <p>{{ topic.description|length > 240 ? topic.description|raw|slice(0, 240)|raw : topic.description|raw }} ... Click to read more</a></p> 
+                    </article>
+                    </td>
+                    </section>
+                    </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+            <td class="align-middle" style="width: 8%;"><td>
+            <td class="frontpage" id="post" style="cursor: pointer;">
+            <p><br>{% trans %}No topics created yet, press add, to add new topic{% endtrans %}<br>gif..</p><br>
+            </td>
+            </tr>
+            {% endif %}
+
+
+        </table></div>
+</div>
 {% endblock %}

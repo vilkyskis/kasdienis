@@ -1,39 +1,40 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}{{user.username}}{% endblock %}
-
 {% block navbar %}
-
-{# LEFT NAV #}
  <div id="topic-nav" class="text-center">
         <a href="{{ path('index') }}" class="nav-link"><i class="fas fa-home"></i></a>
-        {% for topic_ in topics| sortbyfield('name') %}
-            <a href="{{ path('topic_show', {'id': topic_.id}) }}" class="nav-link">{{ topic_.name }}</a>         
+        {% for topic in topics| sortbyfield('name') %}
+            <a href="{{ path('topic_show', {'id': topic.id}) }}" class="nav-link">{{ topic.name }}</a>         
         {% endfor %}
 </div>
-
-{# RIGHT NAV #}
 <div id="login-nav" class="text-center">
+<div class="row">
+<a href="/lt/" class="nav-link col ml-3">
+<span class="flag-icon flag-icon-lt"></span>
+</a>
+<a href="/en/" class="nav-link col mr-3">
+<span class="flag-icon flag-icon-gb"></span>
+</a></div>
     {% if is_granted('ROLE_USER')%}
-                    <a href="{{ path('user_show',{'id' : app.user.id}) }}" class="nav-link">{{app.user.username|capitalize}}</a>
-                    <a href="{{ path('post_index') }}" class="nav-link">Posts</a>
+<a href="{{ path('user_show',{'id' : app.user.id}) }}" class="nav-link">{{app.user.username|capitalize}}</a>
+                    <a href="{{ path('post_index') }}" class="nav-link"><div class="button">{% trans %}My posts{% endtrans %} <span class="button__badge">{{app.user.createdPosts|length}}</span></div></a>
 
 
-                    <a href="{{ path('topic_index') }}" class="nav-link">Topic</a>
+                    <a href="{{ path('topic_index') }}" class="nav-link"><div class="button">{% trans %}My topics{% endtrans %} <span class="button__badge">{{app.user.topics|length}}</span></div></a>
 
 
-                    <a href="{{ path('fos_user_security_logout') }}" class="nav-link btn-danger text-white">Logout</a>
+                    <a href="{{ path('fos_user_security_logout') }}" class="nav-link btn-danger text-white">{% trans %}Logout{% endtrans %}</a>
 
             {% else %}
 
-<a href="{{ path('fos_user_security_login') }}" class="nav-link"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+<a href="{{ path('fos_user_security_login') }}" class="nav-link"><span class="glyphicon glyphicon-log-in"></span> {% trans %}Login{% endtrans %}</a>
 
-                <a href="{{ path('fos_user_registration_register') }}" class="nav-link btn-danger text-white">Register</a>
+                <a href="{{ path('fos_user_registration_register') }}" class="nav-link btn-danger text-white">{% trans %}Register{% endtrans %}</a>
 
             {% endif %}
 </div>
 <button onclick="window.location.href='{{ path('index') }}'" id="back-to-list" title="Go to list"><i class="fas fa-chevron-left"></i></button> 
-
 {% endblock %}
 
 {% block body %}
@@ -43,12 +44,12 @@
     <div class="logo_index"><h1 class="text-center text-white" style="margin-top: 75px;font-size:70px;">{{ user.username }}</h1></div>
         <div class="container" style="position:absolute;top:185px;left: 375px;margin-top:30px;margin-bottom:30px;">
             <div class="container" style="background-color: var(--second_color); margin-bottom:30px;-webkit-border-radius: 10px;border-radius: 10px;">
-                <p>Last login: {{user.lastLogin|time_diff|trans|raw ? : 'just now'}}</p>
+                <p>{% trans %}Last login{% endtrans %}: {{user.lastLogin|time_diff|trans|raw ? : 'just now'}}</p>
             </div>
     {# Posts #}
 
         <div class="container" style="background-color: var(--second_color); margin-bottom:30px;-webkit-border-radius: 10px;border-radius: 10px;">
-            <br><h1 class="text-center">//Posts</h1><br>
+            <br><h1 class="text-center">//{% trans %}My posts{% endtrans %}</h1><br>
             {% if user.createdposts|length > 0 %}
 
         <table class="table table-borderless frontpage" id="seperator">
@@ -66,8 +67,8 @@
                     </td>
                     <td onclick="window.location.href='{{ path('post_show', {'id': post.id}) }}'" class="frontpage" id="post" style="cursor: pointer;">
                     <article class="post">
-                    <p class="post-meta">{{ post.Title }} * <span>Posted by</span> <a href="{{ path('user_show', {'id': post.author.id}) }}">{{ post.author }}</a> * {{post.Date|time_diff|trans|raw ? : 'just now'}}</p>
-                    <p>{{ post.Data|length > 240 ? post.Data|raw|slice(0, 240)|raw : post.Data|raw }} ... Click to read more</a></p> 
+                    <p class="post-meta">{{ post.Title }} * <span>{% trans %}Posted by{% endtrans %}</span> <a href="{{ path('user_show', {'id': post.author.id}) }}">{{ post.author }}</a> * {{post.Date|time_diff|trans|raw ? : 'just now'}}</p>
+                    <p>{{ post.Data|length > 240 ? post.Data|raw|slice(0, 240)|raw : post.Data|raw }} {% trans %}... Click to read more{% endtrans %}</a></p> 
                     </article>
                     </td>
                     </section>
@@ -77,7 +78,7 @@
             <tr>
             <td class="align-middle" style="width: 8%;"><td>
             <td class="frontpage" id="post" style="cursor: pointer;">
-            <p><br>No post created yet, press add, to add new post<br>gif..</p>
+            <p><br>{% trans %}No post created yet, press add, to add new post{% endtrans %}<br>gif..</p>
             </td>
             </tr>
             {% endif %}
@@ -89,7 +90,7 @@
     {# Topics #}
 
         <div class="container" style="background-color: var(--second_color); margin-bottom:30px;-webkit-border-radius: 10px;border-radius: 10px;">
-            <br><h1 class="text-center">//Topics</h1><br>
+            <br><h1 class="text-center">//{% trans %}My topics{% endtrans %}</h1><br>
             {% if user.topics|length > 0 %}
 
         <table class="table table-borderless frontpage" id="seperator">
@@ -100,7 +101,7 @@
                     <td onclick="window.location.href='{{ path('topic_show', {'id': topic.id}) }}'" class="frontpage" id="post" style="cursor: pointer;">
                     <article class="post">
                     <p class="post-meta">{{ topic.name }}</p>
-                    <p>{{ topic.description|length > 240 ? topic.description|raw|slice(0, 240)|raw : topic.description|raw }} ... Click to read more</a></p> 
+                    <p>{{ topic.description|length > 240 ? topic.description|raw|slice(0, 240)|raw : topic.description|raw }}{% trans %}... Click to read more{% endtrans %}</a></p> 
                     </article>
                     </td>
                     </section>
@@ -110,7 +111,7 @@
             <tr>
             <td class="align-middle" style="width: 8%;"><td>
             <td class="frontpage" id="post" style="cursor: pointer;">
-            <p><br>No topics created yet, press add, to add new topic<br>gif..</p><br>
+            <p><br>{% trans %}No topics created yet, press add, to add new topic{% endtrans %}<br>gif..</p><br>
             </td>
             </tr>
             {% endif %}
@@ -121,7 +122,7 @@
     {# Comments #}
 
     <div class="container" style="background-color:var(--second_color); margin-bottom:30px;-webkit-border-radius: 10px;border-radius: 10px;">
-<br><h1 class="text-center">//Comments</h1><br>
+<br><h1 class="text-center">//{% trans %}My comments{% endtrans %}</h1><br>
     <table class="table table-borderless frontpage" id="seperator">
     <tbody>
     {% for comm in user.comments| sortbyfield('likedCount')|reverse %}

@@ -7,6 +7,12 @@ index:
     requirements:
         _locale: en|lt
 
+fos_user_logout:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+    prefix: /{_locale}//register
+    requirements:
+        _locale: en|lt
+
 fos_user_login:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
     prefix: /{_locale}/register

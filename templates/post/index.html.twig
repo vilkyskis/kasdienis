@@ -2,44 +2,78 @@
 
 {% block title %}Post index{% endblock %}
 
-{% block body %}
-    <div class="container">
-    
-
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Date</th>
-                <th>Data</th>
-                <th>Upvotes</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for post in posts %}
-        <h1>{{ post.topic }}</h1>
-            <tr>
-                <td>{{ post.id }}</td>
-                <td>{{ post.Title }}</td>
-                <td>{{ post.Date ? post.Date|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ post.Data|length > 240 ? post.Data|slice(0, 240) ~ '...' : post.Data    }}</td>
-                <td>{{ post.upvotes }}</td>
-                <td>
-                    <a href="{{ path('post_show', {'id': post.id}) }}">show</a>
-                    <a href="{{ path('post_edit', {'id': post.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
+{% block navbar %}
+ <div id="topic-nav" class="text-center">
+        <a href="{{ path('index') }}" class="nav-link"><i class="fas fa-home"></i></a>
+        {% for topic in topics| sortbyfield('name') %}
+            <a href="{{ path('topic_show', {'id': topic.id}) }}" class="nav-link">{{ topic.name }}</a>         
         {% endfor %}
-        </tbody>
-    </table>
+</div>
+<div id="login-nav" class="text-center">
+<div class="row">
+<a href="/lt/" class="nav-link col ml-3">
+<span class="flag-icon flag-icon-lt"></span>
+</a>
+<a href="/en/" class="nav-link col mr-3">
+<span class="flag-icon flag-icon-gb"></span>
+</a></div>
+    {% if is_granted('ROLE_USER')%}
+<a href="{{ path('user_show',{'id' : app.user.id}) }}" class="nav-link">{{app.user.username|capitalize}}</a>
+                    <a href="{{ path('post_index') }}" class="nav-link"><div class="button">{% trans %}My posts{% endtrans %} <span class="button__badge">{{app.user.createdPosts|length}}</span></div></a>
 
-    <a href="{{ path('post_new') }}">Create new</a>
+
+                    <a href="{{ path('topic_index') }}" class="nav-link"><div class="button">{% trans %}My topics{% endtrans %} <span class="button__badge">{{app.user.topics|length}}</span></div></a>
+
+
+                    <a href="{{ path('fos_user_security_logout') }}" class="nav-link btn-danger text-white">{% trans %}Logout{% endtrans %}</a>
+
+            {% else %}
+
+<a href="{{ path('fos_user_security_login') }}" class="nav-link"><span class="glyphicon glyphicon-log-in"></span> {% trans %}Login{% endtrans %}</a>
+
+                <a href="{{ path('fos_user_registration_register') }}" class="nav-link btn-danger text-white">{% trans %}Register{% endtrans %}</a>
+
+            {% endif %}
+</div>
+
+
+
+{% endblock %}
+
+{% block body %}
+
+<div class="logo_index"><h1 class="text-center text-white" style="margin-top: 75px;font-size:70px;">{% trans %}My posts{% endtrans %}</h1></div>
+        {% if is_granted('ROLE_USER')%}        
+        <button onclick="window.location.href='{{ path('index') }}'" id="back-to-list" title="Go to list"><i class="fas fa-chevron-left"></i></button> 
+        {% endif %}
+    <div class="container" style="position:absolute;top:185px;left: 375px;margin-top:30px;margin-bottom:30px;">
+    {% if app.user.createdposts|length > 0 %}
+            {% for post in app.user.createdposts | sortbyfield('upvotes')|reverse [:4]%} 
+            <div class="container" style="background-color: var(--second_color); margin-bottom:30px;-webkit-border-radius: 10px;border-radius: 10px;">
+                <table class="table table-borderless frontpage" id="seperator">
+                    <tr>
+                    <section>
+                    <td class="align-middle" style="width: 8%;">
+                    {{ post.likedBy|length }}
+                    {% if app.user in post.likedBy %} 
+                    <img src="{{ asset('build/images/Heart.png') }}" id="unlike" onclick="window.location.href='{{ path('default_post_like', {'id': post.id}) }}'" width="25px" height="25px" />
+                    {% else %} 
+                    <img src="{{ asset('build/images/Heart.png') }}" id="like" onclick="window.location.href='{{ path('default_post_like', {'id': post.id}) }}'" width="25px" height="25px"/>
+                    {% endif %}
+                    </td>
+                    <td onclick="window.location.href='{{ path('post_show', {'id': post.id}) }}'" class="frontpage" id="post" style="cursor: pointer;">
+                    <article class="post">
+                    <p class="post-meta">{{ post.Title }} * <span>{% trans %}Posted by{% endtrans %}</span> <a href="{{ path('user_show', {'id': post.author.id}) }}">{{ post.author }}</a> * {{post.Date|time_diff|trans|raw ? : 'just now'}}</p>
+                    <p>{% if post.image %}  <img src="{{ asset('uploads/images/'~ post.image) }}"/> {% endif %}{{ post.Data|raw }}</a></p> 
+                    </article>
+                    </td>
+                    </section>
+                    </tr>
+                     </table></div>
+            {% endfor %}
+{% else %}
+            <div class="text-center bg-danger text-white">{% trans %}No posts created yet, please add at least one{% endtrans %}</div>
+        {% endif %}
+       
     </div>
 {% endblock %}

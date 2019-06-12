@@ -137,6 +137,22 @@
         <source>Comment</source>
         <target>Komentuoti</target>
       </trans-unit>
+      <trans-unit id="roayLn3" resname="No posts created yet, please add at least one">
+        <source>No posts created yet, please add at least one</source>
+        <target>Nėra sukurtų įrašų, prašome pridėti bent vieną</target>
+      </trans-unit>
+      <trans-unit id="DTlgLcO" resname="Last login">
+        <source>Last login</source>
+        <target>Paskutinis prisijungimas</target>
+      </trans-unit>
+      <trans-unit id="FcoPsnv" resname="No topics created yet, press add, to add new topic">
+        <source>No topics created yet, press add, to add new topic</source>
+        <target>Nėra sukurtų temų, prašome prdėti paspausdami pliuso ženkliuką</target>
+      </trans-unit>
+      <trans-unit id="HbqWvMU" resname="My comments">
+        <source>My comments</source>
+        <target>Mano komentarai</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -53,6 +53,14 @@
         <source>Create new account</source>
         <target>Sukurti naują vartotoją</target>
       </trans-unit>
+      <trans-unit id="37Tin3z" resname="CONGRATS">
+        <source>CONGRATS</source>
+        <target>SVEIKINAME</target>
+      </trans-unit>
+      <trans-unit id="sx6rUx5" resname="Press here to go back to frontpage">
+        <source>Press here to go back to frontpage</source>
+        <target>Spustelėkite čia kad grįžtumėte į pagrindinį puslapį</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

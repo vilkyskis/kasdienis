@@ -18,8 +18,14 @@ security:
             security: false
         main:
             anonymous: true
-            logout: ~
+            logout:
+                path: fos_user_security_logout
+                target: index
             form_login:
+                login_path: fos_user_security_login
+                check_path: fos_user_security_check
+                provider: fos_userbundle
+                default_target_path: index
                 csrf_token_generator: security.csrf.token_manager
 
             # activate different ways to authenticate
