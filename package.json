@@ -20,7 +20,7 @@
         "bootstrap-sass": "^3.4.1",
         "fast-levenshtein": "^2.0.6",
         "flag-icon-css": "^3.3.0",
-        "jquery": "^3.4.1",
+        "jquery": "^3.5.0",
         "mini-css-extract-plugin": "^0.6.0",
         "pkg-up": "^3.1.0",
         "pretty-error": "^2.1.1",
